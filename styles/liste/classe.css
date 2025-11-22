@@ -1,0 +1,110 @@
+@import url(./style.css);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        .table {
+            font-family: 'Times New Roman', Times, serif;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .table-head {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: #e4f1ff;
+        }
+
+        .table p {
+            color: #000;
+        }
+
+        button {
+            outline: none;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .add-new {
+            padding: 10px 20px;
+            color: #e4f1ff;
+            background-color: #2563eb;
+            border-radius: 20px;
+        }
+
+        input {
+            padding: 10px 20px;
+            margin: 0 10px;
+            outline: none;
+            border: 1px solid #2563eb;
+            border-radius: 6px;
+        }
+
+        .table-section {
+            width: 100%;
+            table-layout: fixed;
+            min-width: 600px;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #2563eb;
+            color: #e4f1ff;
+            z-index: 1;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        td img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .save-btn {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 6px;
+            margin-right: 10px;
+        }
+
+        ::placeholder {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        td input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .add-form {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .add-form input {
+            margin: 5px 10px;
+        }
+
+        .add-form button {
+            margin: 10px;
+        }

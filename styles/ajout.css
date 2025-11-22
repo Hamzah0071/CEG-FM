@@ -82,6 +82,23 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #2b6cb0;
 }
+/* nouveux div */
+.div3 >.content-sectio > .carre{
+    background-color: aqua;
+}
+.div3 .content-section .six{
+    background-color: #2b6cb0;
+}
+.div3 .content-section .cinq{
+    background-color: #003165;
+}
+.div3 .content-section .quatre{
+    background-color: #000000;
+}
+.div3 .content-section .trois{
+    background-color: #ffffff;
+}
+
 
 .footer {
     text-align: center;

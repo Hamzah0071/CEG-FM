@@ -208,7 +208,12 @@
   width: 220px;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
-
+.div2 .submenu-item .arrow-icon {
+  margin-left: auto;
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
 .div2 .search-bar:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 6px rgba(0, 123, 255, 0.2);

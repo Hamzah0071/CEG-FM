@@ -1,0 +1,1 @@
+<!-- vérifie les sessions / rôles -->

@@ -7,6 +7,7 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 0;
 }
 
 .parent {
@@ -109,6 +110,14 @@ label {
     margin-bottom: 8px;
 }
 
+label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
 input {
     padding: 10px;
     border: 1px solid #cbd5e0;
@@ -123,6 +132,13 @@ input {
 input:focus {
     border-color: #4299e1;
     outline: none;
+}
+
+input[type="checkbox"] {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
 }
 
 .sign-in-btn {
