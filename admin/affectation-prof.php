@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/admin/bulletin.css">
+    <link rel="stylesheet" href="../styles/admin/affectation-prof.css">
     <link rel="icon" type="image/png" href="../images/icone/CEG-fm.png">
     <title>Document</title>
 </head>
@@ -31,66 +31,70 @@
             Bouton Retirer affectation
             -->
             <div class="page">
-    <h2>Affectation des professeurs</h2>
+                <div class="haut">
+                    <h2>Affectation des professeurs</h2>
 
-    <form class="form-affectation">
+                    <form class="form-affectation">
 
-        <div class="form-group">
-            <label>Professeur :</label>
-            <select name="prof_id">
-                <option value="">Sélectionnez un professeur</option>
-                <!-- boucle PHP -->
-                <!-- <?php foreach($profs as $prof): ?> -->
-                <option value="1">Rabe Andrianina</option>
-                <!-- <?php endforeach; ?> -->
-            </select>
+                        <div class="form-group">
+                            <label>Professeur :</label>
+                            <select name="prof_id">
+                                <option value="">Sélectionnez un professeur</option>
+                                <!-- boucle PHP -->
+                                <!-- <?php foreach($profs as $prof): ?> -->
+                                <option value="1">Rabe Andrianina</option>
+                                <!-- <?php endforeach; ?> -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Matière :</label>
+                            <select name="matiere_id">
+                                <option value="">Sélectionnez une matière</option>
+                                <option value="1">Math</option>
+                                <option value="2">SVT</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Classe :</label>
+                            <select name="classe_id">
+                                <option value="">Sélectionnez une classe</option>
+                                <option value="6eme">6ème</option>
+                                <option value="5eme">5ème</option>
+                            </select>
+                        </div>
+
+                        <button type="submit">Affecter</button>
+                    </form>
+                </div>
+                <hr>
+                <div class="bas">
+                    <h3>Affectations existantes</h3>
+
+                    <table class="table-affectations">
+                        <thead>
+                            <tr>
+                                <th>Professeur</th>
+                                <th>Matière</th>
+                                <th>Classe</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- Exemple -->
+                            <tr>
+                                <td>Rabe Andrianina</td>
+                                <td>Math</td>
+                                <td>5ème A</td>
+                                <td><a href="#">Retirer</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
-
-        <div class="form-group">
-            <label>Matière :</label>
-            <select name="matiere_id">
-                <option value="">Sélectionnez une matière</option>
-                <option value="1">Math</option>
-                <option value="2">SVT</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Classe :</label>
-            <select name="classe_id">
-                <option value="">Sélectionnez une classe</option>
-                <option value="6eme">6ème</option>
-                <option value="5eme">5ème</option>
-            </select>
-        </div>
-
-        <button type="submit">Affecter</button>
-    </form>
-
-    <hr>
-
-    <h3>Affectations existantes</h3>
-
-    <table class="table-affectations">
-        <thead>
-            <tr>
-                <th>Professeur</th>
-                <th>Matière</th>
-                <th>Classe</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <!-- Exemple -->
-            <tr>
-                <td>Rabe Andrianina</td>
-                <td>Math</td>
-                <td>5ème A</td>
-                <td><a href="#">Retirer</a></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-        </div>
+    </div>
+</body>

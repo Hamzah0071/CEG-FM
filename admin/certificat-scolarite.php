@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/liste/classe.css">
     <link rel="stylesheet" href="../styles/admin/certifica.css">
-    <link rel="stylesheet" href="../styles/admin/bulletin.css">
     <link rel="icon" type="image/png" href="../images/icone/CEG-fm.png">
     <title>Document</title>
 </head>
@@ -117,3 +116,4 @@
             </div>
             
         </div>
+    </div>
