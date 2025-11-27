@@ -14,12 +14,12 @@
         <?php require_once('../include/header.php'); ?>
 
         <div class="div3">
+            <?php require_once('../include/variable.php'); ?>
         <div class="content-section">
             <div class="table">
                 <div class="table-head">
-                    <h3>gere les professeurs</h3>
+                    <h3>Gere les classe</h3>
                     <div class="recherche">
-                        <input placeholder="Chercher un professeur">
                         <button class="add-new" onclick="toggleAddForm()">Ajouter</button>
                     </div>
                 </div>
@@ -40,17 +40,24 @@
                         </tr>
                     </thead>
                     <tbody id="studentTableBody">
-                        <tr>
-                            <td>01</td>
-                            <td>6ème</td>
-                            <td> A</td>
+                        <?php foreach ($classes_existantes as $index => $classe): ?>
+                            <tr>
+                                <td><?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?></td>
+                                <td><?= htmlspecialchars($classe['nom']) ?></td>
+                                <td><?= htmlspecialchars($classe['initiale']) ?></td>
+                                <td>
+                                    <img src="../images/icone/icons8-crayon-50.png" alt="Modifier" class="edit-icon" onclick="editClass(<?= $index ?>)">
+                                    <img src="../images/icone/icons8-gomme-50.png" alt="Supprimer" class="delete-icon" onclick="deleteClass(<?= $index ?>)">
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
 
-                            <td>
-                                <img src="../images/icone/icons8-crayon-50.png" alt="Modifier" class="edit-icon">
-                                <img src="../images/icone/icons8-gomme-50.png" alt="Supprimer" class="delete-icon">
-                            </td>
-                        </tr>
-                    </tbody>
+                        <?php if (empty($classes_existantes)): ?>
+                            <tr>
+                                <td colspan="4" style="text-align:center;">Aucune classe enregistrée</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>>
                 </table>
 
             </div>
