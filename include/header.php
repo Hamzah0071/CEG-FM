@@ -39,7 +39,7 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
                 <ul class="submenu">
                     <li>
                         <a href="<?= $basePath ?>admin/liste-eleve.php" class="menu-item">
-                            <img src="<?= $basePath ?>images/icone/liste.png" alt=""> Liste des élèves
+                            <img src="<?= $basePath ?>images/icone/liste.png" alt="">Liste des élèves
                         </a>
                     </li>
                     <li>
@@ -60,77 +60,128 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
                 </ul>
             </li>
 
-            <li><a href="<?= $basePath ?>admin/liste-classe.php" class="menu-item">
+            <li>
+                <a href="<?= $basePath ?>admin/calendrier.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/calendrier.png" alt=""> 
+                <span>calendrier</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="<?= $basePath ?>admin/liste-classe.php" class="menu-item">
                 <img src="<?= $basePath ?>images/icone/icons8-classe-50.png" alt=""> 
                 <span>Classes & groupes</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>admin/liste-prof.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/professeur.png" alt=""> <span>Professeurs</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>admin/liste-matier.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-cahier-80.png" alt=""> <span>Matières</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>admin/affectation-prof.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-affectation-50.png" alt=""> <span>Affectation profs/classes</span>
-            </a></li>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $basePath ?>admin/liste-prof.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/professeur.png" alt="">
+                <span>Professeurs</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $basePath ?>admin/affectation-prof.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/icons8-affectation-50.png" alt="">
+                <span>Affectation profs/classes</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $basePath ?>admin/liste-matier.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/icons8-cahier-80.png" alt="">
+                <span>Matières</span>
+                </a>
+            </li>
             <li><a href="<?= $basePath ?>admin/bulletins.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-stylo-64.png" alt=""> <span>Génération bulletins</span>
+                <img src="<?= $basePath ?>images/icone/icons8-stylo-64.png" alt="">
+                <span>Génération bulletins</span>
             </a></li>
             <li><a href="<?= $basePath ?>admin/notes.php" class="menu-item">
                 <img src="<?= $basePath ?>images/icone/icons8-vérification-du-mot-de-passe-50.png" alt=""> <span>Saisie & validation notes</span>
             </a></li>
             <li><a href="<?= $basePath ?>admin/statistiques.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-graphiques-64.png" alt=""> <span>Statistiques & rapports</span>
+                <img src="<?= $basePath ?>images/icone/icons8-graphiques-64.png" alt="">
+                <span>Statistiques & rapports</span>
             </a></li>
-            <li><a href="<?= $basePath ?>admin/parametres-ecole.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/paramètres.png" alt=""> <span>Paramètres établissement</span>
-            </a></li>
+            
 
         <?php elseif($role === 'prof'): ?>
             <!-- PROFESSEUR -->
-            <li><a href="<?= $basePath ?>prof/mes-classes.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-classe-50.png" alt=""> <span>Mes classes</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>prof/saisie-notes.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-stylo-64.png" alt=""> <span>Saisie des notes</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>prof/appel.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/appel.png" alt=""> <span>Faire l'appel</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>prof/cahier-de-texte.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-cahier-80.png" alt=""> <span>Cahier de texte</span>
-            </a></li>
+            <li>
+                <a href="<?= $basePath ?>prof/mes-classes.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/icons8-classe-50.png" alt="">
+                <span>Mes classes</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $basePath ?>prof/saisie-notes.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/icons8-stylo-64.png" alt="">
+                 <span>Saisie des notes</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $basePath ?>prof/appel.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/appel.png" alt="">
+                 <span>Faire l'appel</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $basePath ?>prof/cahier-de-texte.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/icons8-cahier-80.png" alt=""> 
+                <span>Cahier de texte</span>
+                </a>
+            </li>
 
         <?php elseif($role === 'eleve'): ?>
             <!-- ÉLÈVE -->
-            <li><a href="<?= $basePath ?>eleve/accueil.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-classe-50.png" alt=""> <span>Ma classe</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>eleve/mes-notes.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-note-50.png" alt=""> <span>Mes notes & bulletins</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>eleve/emploi-du-temps.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/calendrier.png" alt=""> <span>Emploi du temps</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>eleve/absences.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-vide-50.png" alt=""> <span>Mes absences</span>
-            </a></li>
+            <li>
+                <a href="<?= $basePath ?>eleve/accueil.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/icons8-classe-50.png" alt=""> 
+                <span>Ma classe</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $basePath ?>eleve/mes-notes.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/icons8-note-50.png" alt=""> 
+                <span>Mes notes & bulletins</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $basePath ?>eleve/emploi-du-temps.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/calendrier.png" alt="">
+                <span>Emploi du temps</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $basePath ?>eleve/absences.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/icons8-vide-50.png" alt=""> 
+                <span>Mes absences</span>
+                </a>
+            </li>
 
         <?php else: ?>
             <!-- INVITÉ / NON CONNECTÉ -->
-            <li><a href="<?= $basePath ?>accueil.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/accueil.png" alt=""> <span>Accueil</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>emploi-du-temps/" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/icons8-cahier-80.png" alt=""> <span>Emploi du temps</span>
-            </a></li>
-            <li><a href="<?= $basePath ?>calendrier/" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/calendrier.png" alt=""> <span>Calendrier scolaire</span>
-            </a></li>
+            <li>
+                <a href="<?= $basePath ?>accueil.php" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/accueil.png" alt=""> 
+                <span>Accueil</span>
+            </a>
+        </li>
+            <li>
+                <a href="<?= $basePath ?>emploi-du-temps/" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/icons8-cahier-80.png" alt="">
+                 <span>Emploi du temps</span>
+            </a>
+        </li>
+            <li><a href="<?= $basePath ?>calendrier" class="menu-item">
+                <img src="<?= $basePath ?>images/icone/calendrier.png" alt="">
+                 <span>Calendrier scolaire</span>
+            </a>
+        </li>
             <li><a href="<?= $basePath ?>messages/" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/message.png" alt=""> <span>Messagerie interne</span>
-                <?php if(rand(1,5) > 3): ?><span class="notification">3</span><?php endif; ?>
-            </a></li>
+                <img src="<?= $basePath ?>images/icone/message.png" alt=""> 
+                <span>Messagerie interne</span>
+            </a>
+        </li>
             <li><a href="<?= $basePath ?>documents/" class="menu-item">
                 <img src="<?= $basePath ?>images/icone/documents.png" alt=""> <span>Ressources</span>
             </a></li>

@@ -13,6 +13,5 @@
         <?php require_once(__DIR__ . '/../include/header.php'); ?>
     </div>
     <script src="../scripts/java.js"></script>
-    <!-- <script src="../scripts/calendrier/index.js" type="module"></script> -->
 </body>
 </html>

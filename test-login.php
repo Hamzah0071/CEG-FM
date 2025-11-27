@@ -13,11 +13,14 @@ if (isset($_GET['as'])) {
     elseif ($role === 'prof') {
         $_SESSION['role'] = 'prof';
         $_SESSION['username'] = 'Mr Ibrahim';
+        $_SESSION['matier'] = 'MATH';
+        $_SESSION['classe'] = '6ème A';
         $_SESSION['user_id'] = 99;
     }
     elseif ($role === 'eleve') {
         $_SESSION['role'] = 'eleve';
         $_SESSION['username'] = 'B.M Hamzah';
+        $_SESSION['classe'] = '6ème A';
         $_SESSION['user_id'] = 150;
     }
     elseif ($role === 'deconnect') {

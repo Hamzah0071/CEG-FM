@@ -20,4 +20,7 @@
         <?php
         require_once('../include/header.php'); // chemin relatif selon le dossier
         ?>
-        <div class="div3"></div>
+        <div class="div3">
+            
+
+        </div>

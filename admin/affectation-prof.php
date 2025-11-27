@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/admin/affectation-prof.css">
     <link rel="icon" type="image/png" href="../images/icone/CEG-fm.png">
-    <title>Document</title>
-</head>
-<body>
-   <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Affectation</title>
 </head>
 <body>
    <div class="parent">
@@ -48,20 +40,59 @@
                         </div>
 
                         <div class="form-group">
+                            <?php 
+                                $matieres = [
+                                    ["Malagasy"],
+                                    ["Français"],
+                                    ["Anglais"],
+                                    ["HIST-GEO"],
+                                    ["MATH"],
+                                    ["PC"],
+                                    ["SVT"],
+                                    ["TICE"],
+                                    ["EPS"],
+                                ];
+                            ?>
                             <label>Matière :</label>
                             <select name="matiere_id">
                                 <option value="">Sélectionnez une matière</option>
-                                <option value="1">Math</option>
-                                <option value="2">SVT</option>
+                                <?php foreach ($matieres as $m) : ?>
+                                <option value="matier"><?= $m[0] ?></option>
+
+                                <?php endforeach; ?>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Classe :</label>
+                            <?php 
+                                $classes = [
+                                    ["6 éme"],
+                                    ["5 éme"],
+                                    ["4 éme"],
+                                    ["3 éme"]
+                                ];
+                                $initiales = [
+                                    ['A'],
+                                    ['B'],
+                                    ['C'],
+                                    ['D'],
+                                    ['E'],
+                                    ['F']
+                                ]
+                            ?>
                             <select name="classe_id">
                                 <option value="">Sélectionnez une classe</option>
-                                <option value="6eme">6ème</option>
-                                <option value="5eme">5ème</option>
+                                <?php foreach($classes as $classe) :  ?>
+                                <option value="classe"><?= $classe[0] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+
+                            <select name="initiale_id">
+                                <option value="">Sélectionnez une initiales</option>
+                                <?php foreach($initiales as $initiale) :  ?>
+                                <option value="initiale"><?= $initiale[0] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
 
@@ -98,3 +129,4 @@
         </div>
     </div>
 </body>
+<!-- modale comme FB -->
