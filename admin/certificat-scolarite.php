@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/liste/classe.css">
-    <link rel="stylesheet" href="../styles/admin/certifica.css">
     <link rel="icon" type="image/png" href="../images/icone/CEG-fm.png">
-    <title>Document</title>
+    <link rel="stylesheet" href="<?= $basePath ?>styles/style.css">
+    <title>certificat scolarite</title>
 </head>
 <body>
    <div class="parent">
@@ -21,42 +20,7 @@
             Aperçu PDF (facultatif)
             Historique des certificats générés
             -->
-            <div class="content-section">
-                <div class="table">
-                    <div class="table-head">
-                        <h3>Certificat / Attestation</h3>
-                        
-                        <div class="recherche">
-                            <input placeholder="Chercher un élèves" id="searchInput">
-                            <button class="add-new">Chercher</button>
-                        </div>
-                    </div>
-
-                    <!-- Formulaire d'ajout -->
-                    <div class="add-form" id="addForm">
-                        <input type="text" id="nameInput" placeholder="Nom de la classe">
-                        <input type="text" id="initialInput" placeholder="Initiale">
-                        <button class="add-new" id="confirmAddBtn">Confirmer</button>
-                    </div>
-
-                    <table class="table-section">
-                        <thead>
-                            <tr>
-                                <th>N°</th>
-                                <th>Nom et Prenom</th>
-                                <th>Date de naissance</th>
-                            </tr>
-                        </thead>
-                        <tbody id="studentTableBody">
-                            <tr>
-                                <td></td>
-                                <td class='editable'></td>
-                                
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            
             <div class="container">
 
                 <h2 class="titre">CERTIFICAT DE SCOLARITÉ</h2>
@@ -106,7 +70,6 @@
                 </div>
 
             </div>
-            
         </div>
     </div>
 </body>

@@ -1,105 +1,127 @@
+// basePath est défini dans header.php → toujours disponible
+const basePath = window.basePath || '';
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Gestion des sous-menus dans div1
-    document.querySelectorAll('.div1 .submenu-item > .menu-item').forEach(item => {
-        item.addEventListener('click', function(e) {
+    // Cache des sélecteurs fréquents
+    const sidebar       = document.querySelector('.div1');
+    const parent        = document.querySelector('.parent');
+    const toggleBtn     = document.getElementById('toggleSidebar');
+
+    // ========================
+    // 1. TOGGLE SIDEBAR (minimize / expand)
+    // ========================
+    if (toggleBtn && parent) {
+    toggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        parent.classList.toggle('expanded');   // ← "expanded" au lieu de "minimized"
+        // sidebar.classList.toggle('minimized'); ← supprimé, géré par CSS
+    });
+}
+
+    // ========================
+    // 2. SOUS-MENUS SIDEBAR (.div1)
+    // ========================
+    document.querySelectorAll('.div1 .submenu-item > .menu-item').forEach(menuItem => {
+        menuItem.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
 
-            const submenuItem = this.parentElement;
-            const submenu = submenuItem.querySelector(':scope > .submenu');
-            const arrow = this.querySelector('.arrow-icon');
-            const div1 = document.querySelector('.div1');
+            // Si sidebar réduite → on bloque l'ouverture (sauf si tu veux autoriser)
+            if (sidebar.classList.contains('minimized')) return;
 
-            // Vérifier si div1 est réduit (minimized), si oui, ne pas ouvrir le sous-menu
-            if (div1.classList.contains('minimized')) {
-                return; // Arrêter l'exécution si div1 est réduit
+            const submenuItem = this.parentElement;
+            const isActive    = submenuItem.classList.toggle('active'); // toggle + retour état
+            const arrow       = this.querySelector('.arrow-icon');
+
+            // Change la flèche
+            if (arrow) {
+                arrow.src = isActive
+                    ? `${basePath}images/icone/fleche-haut.png`
+                    : `${basePath}images/icone/fleche-bas.png`;
             }
 
-            if (submenu && arrow) {
-                submenuItem.classList.toggle('active');
+            // Ferme tous les autres sous-menus (accordéon)
+            document.querySelectorAll('.div1 .submenu-item').forEach(sibling => {
+                if (sibling !== submenuItem) {
+                    sibling.classList.remove('active');
+                    const sibArrow = sibling.querySelector('.arrow-icon');
+                    if (sibArrow) sibArrow.src = `${basePath}images/icone/fleche-bas.png`;
+                }
+            });
+        });
+    });
 
-                // Change l'icône de la flèche
-                arrow.src = submenuItem.classList.contains('active')
-                    ? '../images/icone/fleche-haut.png'
-                    : '../images/icone/fleche-bas.png';
+    // ========================
+    // 3. DROPDOWN PROFIL (.div2 .droite)
+    // ========================
+    const profileDropdowns = document.querySelectorAll('.div2 .droite .dropdown');
 
-                // Ferme les autres sous-menus au même niveau
-                const parentMenu = submenuItem.parentElement;
-                const siblingSubmenuItems = parentMenu.querySelectorAll(':scope > .submenu-item');
-                siblingSubmenuItems.forEach(sibling => {
-                    if (sibling !== submenuItem && sibling.querySelector(':scope > .submenu')) {
-                        sibling.classList.remove('active');
-                        const siblingArrow = sibling.querySelector(':scope > .menu-item > .arrow-icon');
-                        if (siblingArrow) {
-                            siblingArrow.src = '../images/icone/fleche-bas.png';
-                        }
-                    }
-                });
+    profileDropdowns.forEach(dropdown => {
+        const btn   = dropdown.querySelector('.dropbtn');
+        const arrow = btn?.querySelector('.arrow-icon');
+
+        if (!btn) return;
+
+        const toggleDropdown = (e) => {
+            e?.preventDefault();
+            e?.stopPropagation();
+
+            const isActive = dropdown.classList.toggle('active');
+
+            // Change la flèche
+            if (arrow) {
+                arrow.src = isActive
+                    ? `${basePath}images/icone/fleche-haut.png`
+                    : `${basePath}images/icone/fleche-bas.png`;
+            }
+
+            // Ferme les autres dropdowns (au cas où il y en aurait plusieurs)
+            profileDropdowns.forEach(other => {
+                if (other !== dropdown) {
+                    other.classList.remove('active');
+                    const otherArrow = other.querySelector('.arrow-icon');
+                    if (otherArrow) otherArrow.src = `${basePath}images/icone/fleche-bas.png`;
+                }
+            });
+        };
+
+        btn.addEventListener('click', toggleDropdown);
+
+        // Accessibilité clavier
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleDropdown(e);
             }
         });
     });
 
-    // Gestion des dropdowns dans .div2 .droite
-    document.querySelectorAll('.div2 .droite .dropdown .dropbtn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); // Empêche tout comportement par défaut (ex. : navigation)
-            e.stopPropagation(); // Empêche la propagation au parent <a> ou autres éléments
-
-            const dropdown = this.closest('.dropdown');
-            const arrow = this.querySelector('.arrow-icon');
-
-        // Ferme tous les autres dropdowns
-            document.querySelectorAll('.div2 .droite .dropdown').forEach(otherDropdown => {
-                if (otherDropdown !== dropdown) {
-                    otherDropdown.classList.remove('active');
-                    const otherArrow = otherDropdown.querySelector('.arrow-icon');
-                    if (otherArrow) {
-                        otherArrow.src = '../images/icone/fleche-bas.png';
-                    }
-                }
-            });
-
-        // Bascule l'état du dropdown cliqué
-            dropdown.classList.toggle('active');
-            if (arrow) {
-                arrow.src = dropdown.classList.contains('active')
-                    ? '../images/icone/fleche-haut.png'
-                    : '../images/icone/fleche-bas.png';
-            }
-        });
-
-        // Gestion de l'accessibilité (touches Entrée et Espace)
-        button.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.click(); // Simule un clic sur le bouton
-                }
-            });
-        });
-
-        // Ferme les dropdowns si on clique ailleurs
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.dropdown')) {
-                document.querySelectorAll('.div2 .droite .dropdown').forEach(dropdown => {
+    // ========================
+    // 4. FERMER LE DROPDOWN SI CLIC AILLEURS
+    // ========================
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.dropdown') && !e.target.closest('.dropbtn')) {
+            profileDropdowns.forEach(dropdown => {
+                if (dropdown.classList.contains('active')) {
                     dropdown.classList.remove('active');
                     const arrow = dropdown.querySelector('.arrow-icon');
-                    if (arrow) {
-                        arrow.src = '../images/icone/fleche-bas.png';
-                    }
-                });
-            }
-        });
+                    if (arrow) arrow.src = `${basePath}images/icone/fleche-bas.png`;
+                }
+            });
+        }
+    });
 
-    // Gestion de la réduction/élargissement de div1
-    const toggleSidebar = document.getElementById('toggleSidebar');
-    const parent = document.querySelector('.parent');
-    const div1 = document.querySelector('.div1');
-
-    if (toggleSidebar) {
-        toggleSidebar.addEventListener('click', function(e) {
-            e.preventDefault();
-            parent.classList.toggle('minimized');
-            div1.classList.toggle('minimized');
-        });
-    }
+    // Bonus : fermer avec Échap
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            profileDropdowns.forEach(dropdown => {
+                if (dropdown.classList.contains('active')) {
+                    dropdown.classList.remove('active');
+                    const arrow = dropdown.querySelector('.arrow-icon');
+                    if (arrow) arrow.src = `${basePath}images/icone/fleche-bas.png`;
+                }
+            });
+        }
+    });
 });

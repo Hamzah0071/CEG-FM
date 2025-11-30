@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CEG François de Mahy - Gestion Professeurs</title>
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="<?= $basePath ?>styles/style.css">
     <link rel="stylesheet" href="../styles/liste/classe.css">
     <link rel="icon" type="image/png" href="../images/icone/CEG-fm.png">
 </head>
@@ -32,7 +32,6 @@
                                        name="professeurs" 
                                        value="<?= htmlspecialchars($selected_nom) ?>" 
                                        placeholder="Rechercher un professeur...">
-                                <button type="submit">Filtrer</button>
                             </form>
                             <button class="add-new" onclick="toggleAddForm()">Ajouter</button>
                         </div>
@@ -69,6 +68,7 @@
                                 <th>N°</th>
                                 <th>Nom et prénom</th>
                                 <th>Classes</th>
+                                <th>Matier</th>
                                 <th>Date de naissance</th>
                                 <th>Actions</th>
                             </tr>
@@ -88,6 +88,7 @@
                                         <td>
                                             <?= htmlspecialchars(implode(' • ', $professeur['classes'] ?? [])) ?>
                                         </td>
+                                        <td>Matier...</td>
                                         <td><?= htmlspecialchars($professeur['date_naissance'] ?? 'Non renseignée') ?></td>
                                         <td class="actions">
                                             <img src="../images/icone/icons8-crayon-50.png" alt="Modifier" class="edit-icon" title="Modifier">
@@ -107,6 +108,6 @@
         </div>
     </div>
 
-    <script src="../scripts/java.js"></script>
+    
 </body>
 </html>

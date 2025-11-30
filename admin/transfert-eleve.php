@@ -1,24 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?= $basePath ?>styles/style.css">
     <link rel="stylesheet" href="../styles/admin/bulletin.css">
     <link rel="icon" type="image/png" href="../images/icone/CEG-fm.png">
-    <title>Document</title>
+    <title>Transfert élève</title>
 </head>
 <body>
    <div class="parent">
-        <?php
-        require_once('../include/header.php'); // chemin relatif selon le dossier
-        ?>
+        <?php require_once('../include/header.php'); ?>
         <div class="div3">
-            <!-- ======
-            Sections utiles :
-            Formulaire : chercher l’élève
-            Choisir :
-            Transfert vers une autre classe
-            Radiation (avec motif)
-            Historique des actions sur l’élève
-            -->
+            <!-- ton contenu -->
         </div>
+    </div>
+</body>
+</html>

@@ -1,78 +1,77 @@
+
+
+
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEG-Francoi de mahy</title>
-    <link rel="stylesheet" href="../styles/style.css">
+    <title>CEG François de Mahy - Gestion Professeurs</title>
+    <link rel="stylesheet" href="<?= $basePath ?>styles/style.css">
     <link rel="stylesheet" href="../styles/liste/classe.css">
     <link rel="icon" type="image/png" href="../images/icone/CEG-fm.png">
 </head>
 <body>
     <div class="parent">
-        <!-- inclusion de navigation -->
+        <!-- Inclusion du header -->
         <?php require_once('../include/header.php'); ?>
 
-        <div class="div3"> 
-            <!-- importation des variable des eleve -->
+        <div class="div3">
             <?php require_once('../include/liste-des eleve-par-classe.php'); ?>
 
-            <!-- Formulaire de recherche -->
-            <div class="form-group">
-                <form method="POST">
-                    <label for="nom">Eleve :</label>
-                    <input type="text" id="eleve" name="eleve" 
-                        value="<?php echo htmlspecialchars($selected_nom); ?>" 
-                        placeholder="Ex: Recherche eleve...">
-                    <button type="submit">Filtrer</button>
-                    <button type="button" onclick="window.location.href='?'">Voir tout</button>
-                </form>
-            </div>
-
-           <!-- Filtrer les etudiant -->
             <?php
-            $filtered_etudiants = [];
-            foreach($etudiants as $eleve) {
-                // Vérifier si la recette est activée
-                if (array_key_exists('is_enabled', $eleve) && $eleve['is_enabled'] == true) {
-                    // Si aucun eleve n'est sélectionné OU si l'eleve correspond
-                    if (empty($selected_nom) || 
-                        (isset($eleve['nom']) && trim(strtolower($eleve['nom']))  == trim(strtolower($selected_nom))) ) {
-                        echo($selected_nom);
-                        $filtered_etudiants[] = $eleve;
-                    }
-                }
-            }
-            
+            // Récupérer la recherche
+            $selected_nom = trim($_POST['eleve'] ?? '');
             ?>
 
-            <!-- voire si il existe ou pas  -->
-            <h2>
-                <?php if (empty($selected_nom)): ?>
-                        Toutes les information de l'eleve : (<?php echo count($filtered_etudiants); ?>)
-                <?php else: ?>
-                        Son nom: "<?php echo htmlspecialchars($selected_nom); ?>"
-                <?php endif; ?>
-            </h2>
+            <div class="content-section">
+                <div class="table">
+                    <div class="table-head">
+                        <h3>Gérer les eleve</h3>
+                        <div class="recherche">
+                            <!-- Formulaire de recherche -->
+                                <div class="form-group">
+                                    <form method="POST">
+                                        <label for="nom">Eleve :</label>
+                                        <input type="text" id="eleve" name="eleve" 
+                                            value="<?php echo htmlspecialchars($selected_nom); ?>" 
+                                            placeholder="Ex: Recherche eleve...">
+                                    </form>
+                                </div>
+                            <button class="add-new" onclick="toggleAddForm()">Ajouter</button>
+                        </div>
+                    </div>
 
-            <!-- Affiche un etudiant différent selon le cas -->
-            <?php if (empty($filtered_etudiants)): ?>
-                <p class="no-etudiant">
-                    <?php if (empty($selected_nom)): ?>
-                        Aucune etudiant est disponible pour le moment.
-                    <?php else: ?>
-                        Aucune info trouvée pour l'Eleve "<?php echo htmlspecialchars($selected_nom); ?>".
-                    <?php endif; ?>
-                </p>
+                    <!-- Formulaire d'ajout (caché par défaut) -->
+                    <div class="add-form" id="addForm" style="display: none;">
+                        <input type="text" id="nameInput" placeholder="Nom et prénom">
+                        <input type="text" id="classInput" placeholder="Classe (ex: 3ème A)">
+                        <input type="date" id="dateInput" placeholder="Date de naissance">
+                        <button class="add-new" id="confirmAddBtn">Confirmer</button>
+                    </div>
 
-            <?php else: ?>
+                    <!-- Filtrer les etudiant -->
+                        <?php
+                        $filtered_etudiants = [];
+                        foreach($etudiants as $eleve) {
+                            // Vérifier si la recette est activée
+                            if (array_key_exists('is_enabled', $eleve) && $eleve['is_enabled'] == true) {
+                                // Si aucun eleve n'est sélectionné OU si l'eleve correspond
+                                if (empty($selected_nom) || 
+                                    (isset($eleve['nom']) && trim(strtolower($eleve['nom']))  == trim(strtolower($selected_nom))) ) {
+                                    $filtered_etudiants[] = $eleve;
+                                }
+                            }
+                        }
+                        ?>
 
-
-                <!-- boucle du tableaux -->
-                <form class="form-notes">
+                    <form class="form-notes">
                     <table class="table-notes">
                         <thead>
                             <tr>
+                                <th>N°</th>
                                 <th>Élève</th>
                                 <th>age</th>
                                 <th>sexe</th>
@@ -83,7 +82,8 @@
                         <tbody>
                             <!-- Exemple -->
                             <tr>
-                            <?php foreach($filtered_etudiants as $eleve): ?>
+                            <?php foreach($filtered_etudiants as $index => $eleve): ?>
+                                <td><?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?></td>
                                 <td><?php echo $eleve['nom']; ?></td>
                                 <td><?php echo $eleve['age']; ?></td>
                                 <td><?php echo $eleve['sexe']; ?></td>
@@ -93,18 +93,15 @@
                         </tbody>
                     </table>
                 </form>
-
-            <?php endif; ?>
-
-                <div class="footer">
-                    <p>&copy; 2024 CEG François de Mahy. Tous droits réservés.</p>
                 </div>
-        </div>
+            </div>
 
-            
+            <div class="footer">
+                <p>© 2024 CEG François de Mahy. Tous droits réservés.</p>
+            </div>
+        </div>
     </div>
 
-    <script src="../scripts/java.js"></script>
-    <!-- <script src="../scripts/liste/AJ-peson.js" type="module"></script> -->
+    
 </body>
 </html>

@@ -13,6 +13,9 @@
         <!-- Page d’accueil publique -->
         <?php require_once(__DIR__ . '/../include/header.php'); ?>
     
+        <div class="div3">
+            
+        </div>
     </div>
     <script src="../scripts/java.js"></script>
     <script src="../scripts/calendrier/index.js" type="module"></script>
