@@ -56,7 +56,7 @@
                         <?php
                         $filtered_etudiants = [];
                         foreach($etudiants as $eleve) {
-                            // Vérifier si la recette est activée
+                            // Vérifier si les etudiant est activée
                             if (array_key_exists('is_enabled', $eleve) && $eleve['is_enabled'] == true) {
                                 // Si aucun eleve n'est sélectionné OU si l'eleve correspond
                                 if (empty($selected_nom) || 

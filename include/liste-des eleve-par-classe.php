@@ -49,30 +49,7 @@ $etudiants = [
     ['nom' => 'COMBO Houda',             'sexe' => 'F', 'age' => '11', 'date_naissance' => '02-08-2014', 'is_enabled' => true, 'classe' => '6ème D', 'matricule' => '20256D009'],
     ['nom' => 'RAZAFIMANANTSOA Mirantsoa','sexe' => 'F', 'age' => '12', 'date_naissance' => '29-01-2013', 'is_enabled' => true, 'classe' => '6ème D', 'matricule' => '20256D010'],
 
-    // ==================== 6ème E ====================
-    ['nom' => 'RAKOTOVAO Tianà',         'sexe' => 'M', 'age' => '11', 'date_naissance' => '16-04-2014', 'is_enabled' => true, 'classe' => '6ème E', 'matricule' => '20256E001'],
-    ['nom' => 'ANDRIAMIHAJA Nirina',     'sexe' => 'F', 'age' => '12', 'date_naissance' => '11-10-2013', 'is_enabled' => true, 'classe' => '6ème E', 'matricule' => '20256E002'],
-    ['nom' => 'MOHAMED Fatou',           'sexe' => 'F', 'age' => '11', 'date_naissance' => '25-12-2014', 'is_enabled' => true, 'classe' => '6ème E', 'matricule' => '20256E003'],
-    ['nom' => 'RAKOTOMANANA Lalaina',    'sexe' => 'F', 'age' => '12', 'date_naissance' => '03-07-2013', 'is_enabled' => true, 'classe' => '6ème E', 'matricule' => '20256E004'],
-    ['nom' => 'SOILIHI Ibrahim',         'sexe' => 'M', 'age' => '11', 'date_naissance' => '18-09-2014', 'is_enabled' => true, 'classe' => '6ème E', 'matricule' => '20256E005'],
-    ['nom' => 'RAZAFINDRATANDRA Fitia',  'sexe' => 'F', 'age' => '12', 'date_naissance' => '22-05-2013', 'is_enabled' => true, 'classe' => '6ème E', 'matricule' => '20256E006'],
-    ['nom' => 'AHMED Ali',               'sexe' => 'M', 'age' => '11', 'date_naissance' => '07-02-2014', 'is_enabled' => true, 'classe' => '6ème E', 'matricule' => '20256E007'],
-    ['nom' => 'RANDRIANARIVELO Hasina',  'sexe' => 'M', 'age' => '12', 'date_naissance' => '30-08-2013', 'is_enabled' => true, 'classe' => '6ème E', 'matricule' => '20256E008'],
-    ['nom' => 'BACARI Aïcha',            'sexe' => 'F', 'age' => '11', 'date_naissance' => '14-11-2014', 'is_enabled' => true, 'classe' => '6ème E', 'matricule' => '20256E009'],
-    ['nom' => 'RAKOTOVAO Mirantsoa',     'sexe' => 'F', 'age' => '12', 'date_naissance' => '19-01-2013', 'is_enabled' => true, 'classe' => '6ème E', 'matricule' => '20256E010'],
-
-    // ==================== 6ème F ====================
-    ['nom' => 'ANDRIATSITOHAINA Tianà',  'sexe' => 'M', 'age' => '11', 'date_naissance' => '28-06-2014', 'is_enabled' => true, 'classe' => '6ème F', 'matricule' => '20256F001'],
-    ['nom' => 'RAZAFINDRAIBE Nirina',    'sexe' => 'F', 'age' => '12', 'date_naissance' => '05-10-2013', 'is_enabled' => true, 'classe' => '6ème F', 'matricule' => '20256F002'],
-    ['nom' => 'YOUSSOUF Omar',           'sexe' => 'M', 'age' => '11', 'date_naissance' => '11-03-2014', 'is_enabled' => true, 'classe' => '6ème F', 'matricule' => '20256F003'],
-    ['nom' => 'RAKOTONDRADONA Lalaina',  'sexe' => 'F', 'age' => '12', 'date_naissance' => '17-07-2013', 'is_enabled' => true, 'classe' => '6ème F', 'matricule' => '20256F004'],
-    ['nom' => 'CHAMASSI Fatima',         'sexe' => 'F', 'age' => '11', 'date_naissance' => '23-09-2014', 'is_enabled' => true, 'classe' => '6ème F', 'matricule' => '20256F005'],
-    ['nom' => 'ANDRIAMIHANTA Fitia',     'sexe' => 'F', 'age' => '12', 'date_naissance' => '01-05-2013', 'is_enabled' => true, 'classe' => '6ème F', 'matricule' => '20256F006'],
-    ['nom' => 'BEN ALI Nasser',          'sexe' => 'M', 'age' => '11', 'date_naissance' => '19-12-2014', 'is_enabled' => true, 'classe' => '6ème F', 'matricule' => '20256F007'],
-    ['nom' => 'RAHARIMALALA Hasina',     'sexe' => 'M', 'age' => '12', 'date_naissance' => '26-08-2013', 'is_enabled' => true, 'classe' => '6ème F', 'matricule' => '20256F008'],
-    ['nom' => 'MADI Houda',              'sexe' => 'F', 'age' => '11', 'date_naissance' => '04-11-2014', 'is_enabled' => true, 'classe' => '6ème F', 'matricule' => '20256F009'],
-    ['nom' => 'RAKOTOMALALA Mirantsoa',  'sexe' => 'F', 'age' => '12', 'date_naissance' => '13-02-2013', 'is_enabled' => true, 'classe' => '6ème F', 'matricule' => '20256F010'],
-
+    
     // ==================== 5ème A ====================
     ['nom' => 'RAKOTOBE Tianà',          'sexe' => 'M', 'age' => '13', 'date_naissance' => '11-06-2012', 'is_enabled' => true, 'classe' => '5ème A', 'matricule' => '20255A001'],
     ['nom' => 'ANDRIAMIARISOA Nirina',   'sexe' => 'F', 'age' => '12', 'date_naissance' => '19-09-2013', 'is_enabled' => true, 'classe' => '5ème A', 'matricule' => '20255A002'],
@@ -133,6 +110,18 @@ $etudiants = [
     ['nom' => 'BACARI Omar',             'sexe' => 'M', 'age' => '11', 'date_naissance' => '19-07-2014', 'is_enabled' => true, 'classe' => '4ème A', 'matricule' => '20254A009'],
     ['nom' => 'RAHARISON Mirantsoa',     'sexe' => 'F', 'age' => '12', 'date_naissance' => '14-01-2013', 'is_enabled' => true, 'classe' => '4ème A', 'matricule' => '20254A010'],
 
+    // ==================== 4ème B ====================
+    ['nom' => 'RAKOTOVAO Tianà',         'sexe' => 'M', 'age' => '11', 'date_naissance' => '16-04-2014', 'is_enabled' => true, 'classe' => '4ème B', 'matricule' => '20256E001'],
+    ['nom' => 'ANDRIAMIHAJA Nirina',     'sexe' => 'F', 'age' => '12', 'date_naissance' => '11-10-2013', 'is_enabled' => true, 'classe' => '4ème B', 'matricule' => '20256E002'],
+    ['nom' => 'MOHAMED Fatou',           'sexe' => 'F', 'age' => '11', 'date_naissance' => '25-12-2014', 'is_enabled' => true, 'classe' => '4ème B', 'matricule' => '20256E003'],
+    ['nom' => 'RAKOTOMANANA Lalaina',    'sexe' => 'F', 'age' => '12', 'date_naissance' => '03-07-2013', 'is_enabled' => true, 'classe' => '4ème B', 'matricule' => '20256E004'],
+    ['nom' => 'SOILIHI Ibrahim',         'sexe' => 'M', 'age' => '11', 'date_naissance' => '18-09-2014', 'is_enabled' => true, 'classe' => '4ème B', 'matricule' => '20256E005'],
+    ['nom' => 'RAZAFINDRATANDRA Fitia',  'sexe' => 'F', 'age' => '12', 'date_naissance' => '22-05-2013', 'is_enabled' => true, 'classe' => '4ème B', 'matricule' => '20256E006'],
+    ['nom' => 'AHMED Ali',               'sexe' => 'M', 'age' => '11', 'date_naissance' => '07-02-2014', 'is_enabled' => true, 'classe' => '4ème B', 'matricule' => '20256E007'],
+    ['nom' => 'RANDRIANARIVELO Hasina',  'sexe' => 'M', 'age' => '12', 'date_naissance' => '30-08-2013', 'is_enabled' => true, 'classe' => '4ème B', 'matricule' => '20256E008'],
+    ['nom' => 'BACARI Aïcha',            'sexe' => 'F', 'age' => '11', 'date_naissance' => '14-11-2014', 'is_enabled' => true, 'classe' => '4ème B', 'matricule' => '20256E009'],
+    ['nom' => 'RAKOTOVAO Mirantsoa',     'sexe' => 'F', 'age' => '12', 'date_naissance' => '19-01-2013', 'is_enabled' => true, 'classe' => '4ème B', 'matricule' => '20256E010'],
+
     // ==================== 3ème A ====================
     ['nom' => 'ANDRIAMBOAVONJY Rivo',    'sexe' => 'M', 'age' => '11', 'date_naissance' => '27-12-2014', 'is_enabled' => true, 'classe' => '3ème A', 'matricule' => '20253A001'],
     ['nom' => 'RAKOTOFIRINGA Soa',       'sexe' => 'F', 'age' => '12', 'date_naissance' => '03-11-2013', 'is_enabled' => true, 'classe' => '3ème A', 'matricule' => '20253A002'],
@@ -145,6 +134,17 @@ $etudiants = [
     ['nom' => 'ANDRIANARIVELO Mamy',     'sexe' => 'F', 'age' => '11', 'date_naissance' => '22-08-2014', 'is_enabled' => true, 'classe' => '3ème A', 'matricule' => '20253A009'],
     ['nom' => 'RAKOTOBE Fanantenana',    'sexe' => 'F', 'age' => '12', 'date_naissance' => '17-03-2013', 'is_enabled' => true, 'classe' => '3ème A', 'matricule' => '20253A010'],
 
+     // ==================== 3ème B ====================
+    ['nom' => 'ANDRIATSITOHAINA Tianà',  'sexe' => 'M', 'age' => '11', 'date_naissance' => '28-06-2014', 'is_enabled' => true, 'classe' => '3ème B', 'matricule' => '20256F001'],
+    ['nom' => 'RAZAFINDRAIBE Nirina',    'sexe' => 'F', 'age' => '12', 'date_naissance' => '05-10-2013', 'is_enabled' => true, 'classe' => '3ème B', 'matricule' => '20256F002'],
+    ['nom' => 'YOUSSOUF Omar',           'sexe' => 'M', 'age' => '11', 'date_naissance' => '11-03-2014', 'is_enabled' => true, 'classe' => '3ème B', 'matricule' => '20256F003'],
+    ['nom' => 'RAKOTONDRADONA Lalaina',  'sexe' => 'F', 'age' => '12', 'date_naissance' => '17-07-2013', 'is_enabled' => true, 'classe' => '3ème B', 'matricule' => '20256F004'],
+    ['nom' => 'CHAMASSI Fatima',         'sexe' => 'F', 'age' => '11', 'date_naissance' => '23-09-2014', 'is_enabled' => true, 'classe' => '3ème B', 'matricule' => '20256F005'],
+    ['nom' => 'ANDRIAMIHANTA Fitia',     'sexe' => 'F', 'age' => '12', 'date_naissance' => '01-05-2013', 'is_enabled' => true, 'classe' => '3ème B', 'matricule' => '20256F006'],
+    ['nom' => 'BEN ALI Nasser',          'sexe' => 'M', 'age' => '11', 'date_naissance' => '19-12-2014', 'is_enabled' => true, 'classe' => '3ème B', 'matricule' => '20256F007'],
+    ['nom' => 'RAHARIMALALA Hasina',     'sexe' => 'M', 'age' => '12', 'date_naissance' => '26-08-2013', 'is_enabled' => true, 'classe' => '3ème B', 'matricule' => '20256F008'],
+    ['nom' => 'MADI Houda',              'sexe' => 'F', 'age' => '11', 'date_naissance' => '04-11-2014', 'is_enabled' => true, 'classe' => '3ème B', 'matricule' => '20256F009'],
+    ['nom' => 'RAKOTOMALALA Mirantsoa',  'sexe' => 'F', 'age' => '12', 'date_naissance' => '13-02-2013', 'is_enabled' => true, 'classe' => '3ème B', 'matricule' => '20256F010'],
 ];
 
 $selected_nom = $_POST['eleve'] ?? '';

@@ -110,23 +110,30 @@ ul li {
 </style>
 
 <div class="ma-classe">
+    <?php
+        require_once('../include/liste-des eleve-par-classe.php'); // chemin relatif selon le dossier
+        require_once('../include/liste-des-prof.php');
+        require_once('../include/variable.php');
+    ?>
 
     <div class="card">
         <h2>Ma classe — 6ème A</h2>
         <p><strong>Professeur principal :</strong> <span class="missing">Mme Rabenja</span> &nbsp; | &nbsp;
-        <strong>Effectif :</strong> <span class="missing">38 élèves</span></p>
+        <strong>Effectif :</strong> <span class="missing">10 élèves</span></p>
     </div>
 
     <div class="grid">
+        
         <!-- Carte élève -->
         <div class="card">
             <h3>Élève sélectionné</h3>
-            <p><strong>Nom :</strong> <span class="missing">ANDRIANASOLO</span></p>
-            <p><strong>Sexe :</strong> <span class="missing">M</span></p>
-            <p><strong>Age :</strong> <span class="missing">11</span></p>
-            <p><strong>Date de naissance :</strong> <span class="missing">12-05-2014</span></p>
-            <p><strong>Matricule :</strong> <span class="missing">20256A001</span></p>
+            <p><strong>Nom :</strong> <span class="missing"><?php echo $etudiants [0]['nom'].""; ?></span></p>
+            <p><strong>Sexe :</strong> <span class="missing"><?php echo $etudiants [0]['sexe'].""; ?></span></p>
+            <p><strong>Age :</strong> <span class="missing"><?php echo $etudiants [0]['age'].""; ?></span></p>
+            <p><strong>Date de naissance :</strong> <span class="missing"><?php echo $etudiants [0]['date_naissance'].""; ?></span></p>
+            <p><strong>Matricule :</strong> <span class="missing"><?php echo $etudiants [0]['classe'].""; ?></span></p>
             <p><strong>Statut actif :</strong> <span class="missing">Oui</span></p>
+            
         </div>
 
         <!-- Profs de la classe -->
@@ -134,28 +141,23 @@ ul li {
             <h3>Professeurs de la classe</h3>
             <table class="table">
                 <thead>
-                    <tr><th>Matière</th><th>Professeur</th><th>Salle</th></tr>
+                    <tr><th>Matière</th><th>Professeur</th></tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Mathématiques</td>
-                        <td>Mme Rabenja</td>
-                        <td>4</td>
-                    </tr>
-                    <tr>
-                        <td>Français</td>
-                        <td>M. Rakoto</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>SVT</td>
-                        <td>Mme Ranaivo</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td>Anglais</td>
-                        <td>Mme Sarah</td>
-                        <td>5</td>
+                        
+<?php foreach ($professeurs as $professeur): ?>
+    <?php if (in_array('6ème A', $professeur['classes'])): ?>
+        <tr>
+            <td><?php echo $professeur['matiere']; ?></td>
+            <td><?php echo $professeur['nom']; ?></td>
+        </tr>
+    <?php endif; ?>
+<?php endforeach; ?>
+
+
+
+
                     </tr>
                 </tbody>
             </table>
@@ -166,11 +168,11 @@ ul li {
     <div class="card">
         <h3>Camarades de la classe</h3>
         <ul>
-            <li>ANDRIANASOLO</li>
-            <li>RASOLONDRAIBE MALALA</li>
-            <li>NOMENA THIERRY</li>
-            <li>ANDO HERY</li>
-            <li>KOTO NAINA</li>
+            <?php
+            for ($i = 1; $i <= 10; $i++) {
+                echo "<li>" . $etudiants[$i]['nom'] . "</li>";
+            }
+            ?>
         </ul>
     </div>
 
