@@ -14,7 +14,8 @@
         <?php require_once('../include/header.php'); ?>
 
         <div class="div3">
-            <?php require_once('../include/liste-des-prof.php'); ?>
+            <?php require_once('../include/liste-des-prof.php'); 
+            ?>
 
             <?php
             // Récupérer la recherche
@@ -88,7 +89,8 @@
                                         <td>
                                             <?= htmlspecialchars(implode(' • ', $professeur['classes'] ?? [])) ?>
                                         </td>
-                                        <td>Matier...</td>
+                                        <td><?= htmlspecialchars ($professeur['matiere']);  ?> 
+                                        
                                         <td><?= htmlspecialchars($professeur['date_naissance'] ?? 'Non renseignée') ?></td>
                                         <td class="actions">
                                             <img src="../images/icone/icons8-crayon-50.png" alt="Modifier" class="edit-icon" title="Modifier">
