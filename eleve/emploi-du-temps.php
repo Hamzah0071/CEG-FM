@@ -51,110 +51,113 @@ if (!$classe_valide) {
     $classe_courante = "6ème A";
 }
 ?>
+    <div class="div3">
+        <div class="edt-container">
 
-<div class="edt-container">
+            <div class="edt-header">
+                <h2>EMPLOI DU TEMPS</h2>
+                <p>Année scolaire 2025 / 2026</p>
+            </div>
 
-    <div class="edt-header">
-        <h2>EMPLOI DU TEMPS</h2>
-        <p>Année scolaire 2025 / 2026</p>
+            <div class="edt-info">
+                CLASSE : <strong><?= htmlspecialchars($classe_courante) ?></strong>
+                &nbsp;|&nbsp; Effectif : 38 élèves
+                &nbsp;|&nbsp; Professeur principal :
+                <strong>
+                    <?php
+                    foreach ($professeurs as $p) {
+                        if ($p['matiere'] === 'Français' && in_array($classe_courante, $p['classes'])) {
+                            echo htmlspecialchars($p['nom']);
+                            break;
+                        }
+                    }
+                    ?>
+                </strong>
+            </div>
+
+            <table class="table-edt">
+                <thead>
+                    <tr>
+                        <th class="heure">Heure</th>
+                        <th>Lundi</th>
+                        <th>Mardi</th>
+                        <th>Mercredi</th>
+                        <th>Jeudi</th>
+                        <th>Vendredi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <!-- Ligne 1 -->
+                    <tr>
+                        <td class="heure">06:00<br>08:00</td>
+                        <td><?= blocCours("Malagasy", $classe_courante) ?></td>
+                        <td><?= blocCours("Mathématiques", $classe_courante) ?></td>
+                        <td><?= blocCours("Français", $classe_courante) ?></td>
+                        <td><?= blocCours("Anglais", $classe_courante) ?></td>
+                        <td><?= blocCours("HISTO-GEO", $classe_courante) ?></td>
+                    </tr>
+
+                    <!-- Ligne 2 -->
+                    <tr>
+                        <td class="heure">08:30<br>10:00</td>
+                        <td><?= blocCours("Français", $classe_courante) ?></td>
+                        <td><?= blocCours("SVT", $classe_courante) ?></td>
+                        <td><?= blocCours("Mathématiques", $classe_courante) ?></td>
+                        <td><?= blocCours("Malagasy", $classe_courante) ?></td>
+                        <td><?= blocCours("Informatique", $classe_courante) ?></td>
+                    </tr>
+
+                    <!-- Pause -->
+                    <tr>
+                        <td class="heure">10:00<br>10:30</td>
+                        <td colspan="5" class="recreation">PAUSE</td>
+                    </tr>
+
+                    <!-- Ligne 3 -->
+                    <tr>
+                        <td class="heure">10:30<br>12:00</td>
+                        <td><?= blocCours("SVT", $classe_courante) ?></td>
+                        <td><?= blocCours("Physique-Chimie", $classe_courante) ?></td>
+                        <td><?= blocCours("EPS", $classe_courante) ?></td>
+                        <td><?= blocCours("HISTO-GEO", $classe_courante) ?></td>
+                        <td><?= blocCours("Anglais", $classe_courante) ?></td>
+                    </tr>
+
+                    <!-- Pause midi -->
+                    <tr>
+                        <td class="heure">12:00<br>15:00</td>
+                        <td colspan="5" class="pause">PAUSE MIDI</td>
+                    </tr>
+
+                    <!-- Ligne 4 -->
+                    <tr>
+                        <td class="heure">15:00<br>17:00</td>
+                        <td><?= blocCours("Mathématiques", $classe_courante) ?></td>
+                        <td><?= blocCours("TICE", $classe_courante) ?></td>
+                        <td><?= blocCours("Français", $classe_courante) ?></td>
+                        <td><?= blocCours("Malagasy", $classe_courante) ?></td>
+                        <td><?= blocCours("SVT", $classe_courante) ?></td>
+                    </tr>
+
+                    <!-- Ligne 5 -->
+                    <tr>
+                        <td class="heure">17:30<br>18:00</td>
+                        <td><?= blocCours("EPS", $classe_courante) ?></td>
+                        <td><?= blocCours("Anglais", $classe_courante) ?></td>
+                        <td><?= blocCours("Informatique", $classe_courante) ?></td>
+                        <td><?= blocCours("Français", $classe_courante) ?></td>
+                        <td><?= blocCours("HISTO-GEO", $classe_courante) ?></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
     </div>
 
-    <div class="edt-info">
-        CLASSE : <strong><?= htmlspecialchars($classe_courante) ?></strong>
-        &nbsp;|&nbsp; Effectif : 38 élèves
-        &nbsp;|&nbsp; Professeur principal :
-        <strong>
-            <?php
-            foreach ($professeurs as $p) {
-                if ($p['matiere'] === 'Français' && in_array($classe_courante, $p['classes'])) {
-                    echo htmlspecialchars($p['nom']);
-                    break;
-                }
-            }
-            ?>
-        </strong>
-    </div>
-
-    <table class="table-edt">
-        <thead>
-            <tr>
-                <th class="heure">Heure</th>
-                <th>Lundi</th>
-                <th>Mardi</th>
-                <th>Mercredi</th>
-                <th>Jeudi</th>
-                <th>Vendredi</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            <!-- Ligne 1 -->
-            <tr>
-                <td class="heure">06:00<br>08:00</td>
-                <td><?= blocCours("Malagasy", $classe_courante) ?></td>
-                <td><?= blocCours("Mathématiques", $classe_courante) ?></td>
-                <td><?= blocCours("Français", $classe_courante) ?></td>
-                <td><?= blocCours("Anglais", $classe_courante) ?></td>
-                <td><?= blocCours("HISTO-GEO", $classe_courante) ?></td>
-            </tr>
-
-            <!-- Ligne 2 -->
-            <tr>
-                <td class="heure">08:30<br>10:00</td>
-                <td><?= blocCours("Français", $classe_courante) ?></td>
-                <td><?= blocCours("SVT", $classe_courante) ?></td>
-                <td><?= blocCours("Mathématiques", $classe_courante) ?></td>
-                <td><?= blocCours("Malagasy", $classe_courante) ?></td>
-                <td><?= blocCours("Informatique", $classe_courante) ?></td>
-            </tr>
-
-            <!-- Pause -->
-            <tr>
-                <td class="heure">10:00<br>10:30</td>
-                <td colspan="5" class="recreation">PAUSE</td>
-            </tr>
-
-            <!-- Ligne 3 -->
-            <tr>
-                <td class="heure">10:30<br>12:00</td>
-                <td><?= blocCours("SVT", $classe_courante) ?></td>
-                <td><?= blocCours("Physique-Chimie", $classe_courante) ?></td>
-                <td><?= blocCours("EPS", $classe_courante) ?></td>
-                <td><?= blocCours("HISTO-GEO", $classe_courante) ?></td>
-                <td><?= blocCours("Anglais", $classe_courante) ?></td>
-            </tr>
-
-            <!-- Pause midi -->
-            <tr>
-                <td class="heure">12:00<br>15:00</td>
-                <td colspan="5" class="pause">PAUSE MIDI</td>
-            </tr>
-
-            <!-- Ligne 4 -->
-            <tr>
-                <td class="heure">15:00<br>17:00</td>
-                <td><?= blocCours("Mathématiques", $classe_courante) ?></td>
-                <td><?= blocCours("TICE", $classe_courante) ?></td>
-                <td><?= blocCours("Français", $classe_courante) ?></td>
-                <td><?= blocCours("Malagasy", $classe_courante) ?></td>
-                <td><?= blocCours("SVT", $classe_courante) ?></td>
-            </tr>
-
-            <!-- Ligne 5 -->
-            <tr>
-                <td class="heure">17:30<br>18:00</td>
-                <td><?= blocCours("EPS", $classe_courante) ?></td>
-                <td><?= blocCours("Anglais", $classe_courante) ?></td>
-                <td><?= blocCours("Informatique", $classe_courante) ?></td>
-                <td><?= blocCours("Français", $classe_courante) ?></td>
-                <td><?= blocCours("HISTO-GEO", $classe_courante) ?></td>
-            </tr>
-
-        </tbody>
-    </table>
-
-</div>
 
 <?php
 function blocCours($matiere, $classe) {

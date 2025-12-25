@@ -11,7 +11,11 @@
     <div class="parent">
 
         <!-- Page d’accueil publique -->
-        <?php require_once(__DIR__ . '/../include/header.php'); ?>
+        <?php require_once(__DIR__ . '/../include/header.php'); 
+        
+        require_once "../include/auth.php";
+        checkRole('prof');
+        ?>
     
         <div class="div3">
             

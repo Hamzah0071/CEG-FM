@@ -22,16 +22,13 @@
    <div class="parent">
         <?php
         require_once('../include/header.php'); // chemin relatif selon le dossier
+        
+        require_once "../include/auth.php";
+        checkRole('admin');
+
         ?>
         <div class="div3">
             
         </div>
     </div>
-</body>
-    <div class="parent">
-        <!-- Page d’accueil publique -->
-        <?php require_once(__DIR__ . '/../include/header.php'); ?>
-    </div>
-
-</body>
 </html>

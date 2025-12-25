@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bulletin de Notes - CEG Rue François de Mahy</title>
     <style>
-        body { 
-            font-family: 'Times New Roman', serif; 
-            margin: 0; 
-            padding: 10px; 
-            background: #f0f0f0; 
-        }
+        
         .page { 
             width: 210mm; 
             min-height: 297mm; 

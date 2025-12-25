@@ -8,6 +8,51 @@
     <title>CEG-François de Mahy</title>
 </head>
 <body>
+    <?php require_once "../include/db.php"; ?>
+    <!-- ======= -->
+<?php
+session_start();
+
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $username = trim($_POST["username"] ?? '');
+    $password = $_POST["password"] ?? '';
+
+    if ($username === '' || $password === '') {
+        die("Champs manquants");
+    }
+
+    $stmt = $pdo->prepare("
+        SELECT id, username, password, role
+        FROM utilisateurs
+        WHERE username = :username
+        LIMIT 1
+    ");
+    $stmt->execute([':username' => $username]);
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        die("Utilisateur introuvable");
+    }
+
+    if (!password_verify($password, $user['password'])) {
+        die("Mot de passe incorrect");
+    }
+
+    // Connexion OK
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['username'] = $user['username'];
+    $_SESSION['role'] = $user['role'];
+
+    header("Location: ../index.php");
+    exit;
+}
+?>
+
+
+
     <div class="parent">
         <div class="droit">
             <a href="../index.php" class="back-link">
@@ -22,17 +67,20 @@
                 <button class="btn">Se connecter avec Facebook</button>
             </div>
             <div class="or">ou</div>
-            <form>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
-                </div>
-                <button type="submit" class="sign-in-btn">Se connecter</button>
-            </form>
+            <form method="POST" action="">
+    <div class="form-group">
+        <label for="username">Nom d’utilisateur</label>
+        <input type="text" id="username" name="username" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+
+    <button type="submit" class="sign-in-btn">Se connecter</button>
+</form>
+
             <div class="outils">
                 <label>
                     <input type="checkbox">

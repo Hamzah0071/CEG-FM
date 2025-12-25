@@ -37,11 +37,9 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
         <?php if ($role === 'admin'): ?>
 
         <!-- ÉLÈVES -->
-        <li class="submenu-item">
-            <a href="#" class="menu-item">
+            <a href="#" class="menu-item" style="background-color: #007bff;">
                 <img src="<?= $basePath ?>images/icone/icons8-étudiant-homme-64.png" alt="">
-                <span>Élèves</span>
-                <img src="<?= $basePath ?>images/icone/fleche-bas.png" class="arrow-icon">
+                <span>Menus Élèves</span>
             </a>
 
             <!-- <ul class="submenu"> -->
@@ -65,11 +63,9 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
 
 
         <!-- PROFESSEURS -->
-        <li class="submenu-item">
-            <a href="#" class="menu-item">
+            <a href="#" class="menu-item" style="background-color: #007bff;">
                 <img src="<?= $basePath ?>images/icone/professeur.png" alt="">
-                <span>Professeurs</span>
-                <img src="<?= $basePath ?>images/icone/fleche-bas.png" class="arrow-icon">
+                <span>Menus Professeurs</span>
             </a>
 
             <!-- <ul class="submenu"> -->
@@ -88,11 +84,11 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
 
 
         <!-- ORGANISATION -->
-        <li class="submenu-item">
-            <a href="#" class="menu-item">
+        
+            <a href="#" class="menu-item"style="background-color: #007bff;">
                 <img src="<?= $basePath ?>images/icone/icons8-classe-50.png" alt="">
-                <span>Organisation</span>
-                <img src="<?= $basePath ?>images/icone/fleche-bas.png" class="arrow-icon">
+                <span >Menus Organisation</span>
+                
             </a>
 
             <!-- <ul class="submenu"> -->
@@ -116,11 +112,10 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
 
 
         <!-- NOTES / BULLETINS -->
-        <li class="submenu-item">
-            <a href="#" class="menu-item">
+            <a href="#" class="menu-item" style="background-color: #007bff;">
                 <img src="<?= $basePath ?>images/icone/icons8-stylo-64.png" alt="">
-                <span>Notes & bulletins</span>
-                <img src="<?= $basePath ?>images/icone/fleche-bas.png" class="arrow-icon">
+                <span>Menus Notes & bulletins</span>
+                
             </a>
 
             <!-- <ul class="submenu"> -->
@@ -183,7 +178,7 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
     <?php elseif($role === 'eleve'): ?>
         <!-- ÉLÈVE -->
         <li>
-            <a href="<?= $basePath ?>eleve/accueil.php" class="menu-item">
+            <a href="<?= $basePath ?>eleve/ma-classe.php" class="menu-item">
                 <img src="<?= $basePath ?>images/icone/icons8-classe-50.png" alt="">
                 <span>Ma classe</span>
             </a>

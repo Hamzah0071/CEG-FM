@@ -8,6 +8,53 @@
     <title>CEG-François de Mahy</title>
 </head>
 <body>
+   <?php require_once "../include/db.php"; ?>
+<!-- ====== -->
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $username = trim($_POST["name"] ?? '');
+    $email    = trim($_POST["email"] ?? '');
+    $role     = $_POST["role"] ?? '';
+    $password = $_POST["password"] ?? '';
+
+    if ($username === '' || $email === '' || $role === '' || $password === '') {
+        echo "Champs manquants";
+        exit;
+    }
+
+    // Vérifier si l'email existe déjà
+    $check = $pdo->prepare("SELECT id FROM utilisateurs WHERE email = :email");
+    $check->execute([':email' => $email]);
+
+    if ($check->fetch()) {
+        echo "Cet email est déjà utilisé";
+        exit;
+    }
+
+    // Hash du mot de passe
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // Insertion
+    $stmt = $pdo->prepare("
+        INSERT INTO utilisateurs (username, email, password, role)
+        VALUES (:username, :email, :password, :role)
+    ");
+
+    $stmt->execute([
+        ':username' => $username,
+        ':email'    => $email,
+        ':password' => $hash,
+        ':role'     => $role
+    ]);
+
+    echo "Inscription OK";
+}
+?>
+
+
+
     <div class="parent">
         <div class="droit">
             <a href="../index.php" class="back-link">
@@ -21,11 +68,25 @@
                 <button class="btn">Se connecter avec Facebook</button>
             </div>
             <div class="or">ou</div>
-            <form>
+            <form method="POST" action="">
+
                 <div class="form-group">
                     <label for="name">Nom et prénom</label>
                     <input type="text" id="name" name="name" placeholder="Entrez votre nom" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="role">Rôle</label>
+                    <select id="role" name="role" required>
+                        <option value="">-- Choisir un rôle --</option>
+                        <option value="admin">Admin</option>
+                        <option value="eleve">eleve</option>
+                        <option value="prof">Prof</option>
+                    </select>
+                </div>
+
+
+
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
