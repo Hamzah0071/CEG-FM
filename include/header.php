@@ -49,13 +49,13 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
                 </li>
                 <li>
                     <a href="<?= $basePath ?>admin/inscription-eleve.php" class="menu-item">
-                        <img src="<?= $basePath ?>images/icone/inscription.png" alt="">
+                        <img src="<?= $basePath ?>images/icone/icons8-inscription-50.png" alt="">
                          Inscription
                     </a>
                 </li>
                 <li>
                     <a href="<?= $basePath ?>admin/certificat-scolarite.php" class="menu-item">
-                        <img src="<?= $basePath ?>images/icone/certificat.png" alt="">
+                        <img src="<?= $basePath ?>images/icone/icons8-diplôme-50.png" alt="">
                          Certificats
                     </a>
                 </li>
@@ -76,9 +76,15 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
                     </a>
                 </li>
                 <li>
-                    <a href="<?= $basePath ?>admin/inscription-prof.php" class="menu-item">
-                        <img src="<?= $basePath ?>images/icone/inscription.png" alt="">
-                         Inscription
+                    <a href="<?= $basePath ?>admin/recrutement.php" class="menu-item">
+                        <img src="<?= $basePath ?>images/icone/icons8-inscription-50.png" alt="">
+                         Recrutement
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= $basePath ?>admin/liste_affectations.php" class="menu-item">
+                        <img src="<?= $basePath ?>images/icone/icons8-vérification-du-mot-de-passe-50.png" alt="">
+                         liste d'affectations
                     </a>
                 </li>
                 <li>
@@ -165,7 +171,7 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
 
         <li>
             <a href="<?= $basePath ?>prof/appel.php" class="menu-item">
-                <img src="<?= $basePath ?>images/icone/appel.png" alt="">
+                <img src="<?= $basePath ?>images/icone/icons8-levez-la-main-pour-répondre-48.png" alt="">
                 <span>Faire l'appel</span>
             </a>
         </li>

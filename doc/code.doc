@@ -1,0 +1,152 @@
+
+<?php
+require_once "../include/db.php";
+session_start();
+
+$user_id = $_SESSION['user_id'] ?? 1;
+
+/* =========================
+   RECHERCHE ÉLÈVE
+========================= */
+$q = trim($_GET['q'] ?? '');
+
+$sqlEleves = "
+    SELECT id, matricule, nom, prenom
+    FROM eleves
+";
+$params = [];
+
+if ($q !== '') {
+    $sqlEleves .= " WHERE nom LIKE ? OR prenom LIKE ? OR matricule LIKE ?";
+    $params = ["%$q%", "%$q%", "%$q%"];
+}
+
+$sqlEleves .= " ORDER BY nom";
+$stmtEleves = $pdo->prepare($sqlEleves);
+$stmtEleves->execute($params);
+
+/* =========================
+   ÉLÈVE SÉLECTIONNÉ
+========================= */
+$eleve = null;
+
+if (!empty($_GET['eleve_id'])) {
+    $stmt = $pdo->prepare("
+        SELECT e.*, c.niveau, c.section, a.libelle AS annee
+        FROM eleves e
+        JOIN classes c ON c.id = e.classe_id
+        JOIN annee_scolaire a ON a.id = c.annee_scolaire_id
+        WHERE e.id = ?
+    ");
+    $stmt->execute([(int)$_GET['eleve_id']]);
+    $eleve = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($eleve) {
+        $pdo->prepare("
+            INSERT INTO certificats (eleve_id, genere_par)
+            VALUES (?, ?)
+        ")->execute([$eleve['id'], $user_id]);
+    }
+}
+
+/* =========================
+   HISTORIQUE
+========================= */
+$hist = $pdo->query("
+    SELECT e.nom, e.prenom, c.date_generation
+    FROM certificats c
+    JOIN eleves e ON e.id = c.eleve_id
+    ORDER BY c.date_generation DESC
+    LIMIT 5
+")->fetchAll(PDO::FETCH_ASSOC);
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Certificat de scolarité</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+
+
+<div class="parent">
+    <?php require_once('../include/header.php'); ?>
+
+    <h2>Certificat de scolarité</h2>
+
+    <!-- =========================
+         RECHERCHE
+    ========================= -->
+    <div class="box">
+        <form method="GET">
+            <input type="text" name="q"
+                   placeholder="Nom, prénom ou matricule"
+                   value="<?= htmlspecialchars($q) ?>">
+            <button type="submit">Rechercher</button>
+        </form>
+
+        <?php if ($q !== ''): ?>
+            <ul>
+                <?php while ($e = $stmtEleves->fetch()): ?>
+                    <li>
+                        <?= htmlspecialchars($e['nom']) ?>
+                        <?= htmlspecialchars($e['prenom']) ?>
+                        (<?= htmlspecialchars($e['matricule']) ?>)
+                        →
+                        <a href="?q=<?= urlencode($q) ?>&eleve_id=<?= $e['id'] ?>">
+                            Générer certificat
+                        </a>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+        <?php endif; ?>
+    </div>
+
+    <!-- =========================
+         CERTIFICAT
+    ========================= -->
+    <?php if ($eleve): ?>
+        <?php $suffixe = ((int)$eleve['niveau'] === 1) ? 'er' : 'ème'; ?>
+        <div class="box">
+            <h3>CERTIFICAT DE SCOLARITÉ</h3>
+
+            <p><strong>Nom :</strong> <?= htmlspecialchars($eleve['nom']) ?></p>
+            <p><strong>Prénom :</strong> <?= htmlspecialchars($eleve['prenom']) ?></p>
+            <p><strong>Date de naissance :</strong>
+                <?= date('d/m/Y', strtotime($eleve['date_naissance'])) ?>
+            </p>
+            <p><strong>Classe :</strong>
+                <?= $eleve['niveau'] . $suffixe . ' ' . htmlspecialchars($eleve['section']) ?>
+            </p>
+            <p><strong>Année scolaire :</strong> <?= htmlspecialchars($eleve['annee']) ?></p>
+
+            <br>
+
+            <a href="certificat_pdf.php?eleve_id=<?= $eleve['id'] ?>">
+                📄 Télécharger le PDF
+            </a>
+        </div>
+    <?php endif; ?>
+
+    <!-- =========================
+         HISTORIQUE
+    ========================= -->
+    <div class="box">
+        <h4>Derniers certificats générés</h4>
+        <ul>
+            <?php foreach ($hist as $h): ?>
+                <li>
+                    <?= htmlspecialchars($h['nom']) ?>
+                    <?= htmlspecialchars($h['prenom']) ?> —
+                    <?= date('d/m/Y H:i', strtotime($h['date_generation'])) ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -149,12 +149,21 @@
             <select id="classe">
                 <option value="" disabled selected>Choisissez une classe</option>
                 <?php
-                // 
-                $stmt = $pdo->query("SELECT  `nom` as `libelle`, `niveau` FROM `classes` WHERE 1");
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<option value=\"{$row['id']}\">{$row['libelle']}</option>";
-                }
-                ?>
+                        $stmt = $pdo->query("
+                            SELECT c.id, c.niveau, c.section
+                            FROM classes c
+                            JOIN annee_scolaire a ON a.id = c.annee_scolaire_id
+                            WHERE a.actif = 1
+                            ORDER BY c.niveau DESC, c.section
+                        ");
+
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            $niveau = (int)$row['niveau'];
+                            $suffixe = ($niveau === 1) ? 'ère' : 'ème'; // ou 'er' si tu préfères "1ère"
+                            $affichage = $niveau . $suffixe . " " . $row['section'];
+                            echo "<option value='{$row['id']}'>" . htmlspecialchars($affichage) . "</option>";
+                        }
+                        ?>
             </select>
             <button onclick="filtrer()">Appliquer le filtre</button>
         </div>
