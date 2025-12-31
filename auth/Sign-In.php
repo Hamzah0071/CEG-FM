@@ -68,18 +68,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
             <div class="or">ou</div>
             <form method="POST" action="">
-    <div class="form-group">
-        <label for="username">Nom d’utilisateur</label>
-        <input type="text" id="username" name="username" required>
-    </div>
+                <div class="form-group">
+                    <label for="username">Nom d’utilisateur</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
 
-    <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password" required>
-    </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
 
-    <button type="submit" class="sign-in-btn">Se connecter</button>
-</form>
+                <button type="submit" class="sign-in-btn">Se connecter</button>
+            </form>
 
             <div class="outils">
                 <label>

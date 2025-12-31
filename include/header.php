@@ -71,12 +71,20 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
             <!-- <ul class="submenu"> -->
                 <li>
                     <a href="<?= $basePath ?>admin/liste-prof.php" class="menu-item">
-                        <img src="<?= $basePath ?>images/icone/professeur.png" alt=""> Liste des profs
+                        <img src="<?= $basePath ?>images/icone/professeur.png" alt="">
+                         Liste des profs
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= $basePath ?>admin/inscription-prof.php" class="menu-item">
+                        <img src="<?= $basePath ?>images/icone/inscription.png" alt="">
+                         Inscription
                     </a>
                 </li>
                 <li>
                     <a href="<?= $basePath ?>admin/affectation-prof.php" class="menu-item">
-                        <img src="<?= $basePath ?>images/icone/icons8-affectation-50.png" alt=""> Affectations
+                        <img src="<?= $basePath ?>images/icone/icons8-affectation-50.png" alt="">
+                         Affectations
                     </a>
                 </li>
             <!-- </ul> -->

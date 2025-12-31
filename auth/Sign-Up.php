@@ -11,50 +11,44 @@
    <?php require_once "../include/db.php"; ?>
 <!-- ====== -->
 <?php
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $username = trim($_POST["name"] ?? '');
-    $email    = trim($_POST["email"] ?? '');
-    $role     = $_POST["role"] ?? '';
-    $password = $_POST["password"] ?? '';
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
+    $role     = $_POST['role'] ?? '';
 
-    if ($username === '' || $email === '' || $role === '' || $password === '') {
-        echo "Champs manquants";
-        exit;
+    if ($username === '' || $password === '' || $role === '') {
+        exit("Champs manquants");
     }
 
-    // Vérifier si l'email existe déjà
-    $check = $pdo->prepare("SELECT id FROM utilisateurs WHERE email = :email");
-    $check->execute([':email' => $email]);
+    // Vérifier si username existe
+    $check = $pdo->prepare(
+        "SELECT id FROM utilisateurs WHERE username = ?"
+    );
+    $check->execute([$username]);
 
     if ($check->fetch()) {
-        echo "Cet email est déjà utilisé";
-        exit;
+        exit("Nom d'utilisateur déjà utilisé");
     }
 
     // Hash du mot de passe
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insertion
+    // Insertion utilisateur (EN ATTENTE)
     $stmt = $pdo->prepare("
-        INSERT INTO utilisateurs (username, email, password, role)
-        VALUES (:username, :email, :password, :role)
+        INSERT INTO utilisateurs (username, password_hash, role, statut)
+        VALUES (?, ?, ?, 'en_attente')
     ");
 
     $stmt->execute([
-        ':username' => $username,
-        ':email'    => $email,
-        ':password' => $hash,
-        ':role'     => $role
+        $username,
+        $hash,
+        $role
     ]);
 
-    // echo "Inscription OK";
+    echo "Compte créé. En attente de validation par l'administration.";
 }
 ?>
-
-
-
     <div class="parent">
         <div class="droit">
             <a href="../index.php" class="back-link">
@@ -68,39 +62,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <button class="btn">Se connecter avec Facebook</button>
             </div>
             <div class="or">ou</div>
-            <form method="POST" action="">
 
+            <form method="POST">
                 <div class="form-group">
-                    <label for="name">Nom et prénom</label>
-                    <input type="text" id="name" name="name" placeholder="Entrez votre nom" required>
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" id="username" name="username" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="role">Rôle</label>
+                    <label for="role">Rôle demandé</label>
                     <select id="role" name="role" required>
-                        <option value="">-- Choisir un rôle --</option>
-                        <option value="admin">Admin</option>
-                        <option value="eleve">eleve</option>
-                        <option value="prof">Prof</option>
+                        <option value="" disabled selected>Choisir un rôle</option>
+                        <option value="eleve">Élève</option>
+                        <option value="prof">Professeur</option>
                     </select>
-                </div>
-
-
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+                    <input type="password" id="password" name="password" required>
                 </div>
                 <label>
-                    <input type="checkbox">
-                    En créant un compte, vous acceptez les Conditions Générales d'Utilisation et notre Politique de Confidentialité
+                    <input type="checkbox" required>
+                    J’accepte les conditions
                 </label>
                 <button type="submit" class="sign-in-btn">S'inscrire</button>
             </form>
+
             <div class="sign-up">
                 Vous avez déjà un compte ?
                 <a href="./Sign-In.php" class="sign-up-link">Connexion</a>

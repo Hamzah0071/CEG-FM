@@ -14,46 +14,58 @@
             require_once('../include/header.php'); 
             require_once "../include/db.php"; 
         ?>
-
 <?php
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $matricule        = trim($_POST["matricule"] ?? '');
-    $nom              = trim($_POST["nom"] ?? '');
-    $prenom           = trim($_POST["prenom"] ?? '');
-    $date_naissance   = $_POST["date_naissance"] ?? '';
-    $sexe             = $_POST["sexe"] ?? '';
-    $classe_id        = (int)($_POST["classe_id"] ?? 0);
-    $annee_id         = (int)($_POST["annee_id"] ?? 0);
-    $date_inscription = $_POST["date_inscription"] ?? '';
 
-    if (empty($matricule) || empty($nom) || empty($prenom) || empty($date_naissance) 
-        || empty($sexe) || empty($date_inscription) || $classe_id === 0 || $annee_id === 0) {
-        echo "Champs manquants";
-        exit;
-    }
+    $matricule = trim($_POST['matricule'] ?? '');
+    $nom = trim($_POST['nom'] ?? '');
+    $prenom = trim($_POST['prenom'] ?? '');
+    $date_naissance = $_POST['date_naissance'] ?? '';
+    $sexe = $_POST['sexe'] ?? '';
+    $classe_id = (int)($_POST['classe_id'] ?? 0);
+    $date_inscription = $_POST['date_inscription'] ?? '';
 
-    // Vérif année
-    $check = $pdo->prepare("SELECT id FROM annee_scolaire WHERE id = :id AND actif = 1");
-    $check->execute([':id' => $annee_id]);
-    if (!$check->fetch()) {
-        echo "Année invalide";
-        exit;
+    if (
+        !$matricule || !$nom || !$prenom ||
+        !$date_naissance || !$sexe ||
+        !$classe_id || !$date_inscription
+    ) {
+        exit("Champs manquants");
     }
 
     // Vérif doublon matricule
-    $check = $pdo->prepare("SELECT id FROM eleves WHERE matricule = :matricule");
-    $check->execute([':matricule' => $matricule]);
+    $check = $pdo->prepare("SELECT id FROM eleves WHERE matricule = ?");
+    $check->execute([$matricule]);
     if ($check->fetch()) {
-        echo "Matricule déjà utilisé";
-        exit;
+        exit("Matricule déjà utilisé");
     }
 
-    // Insertion
+    // =============================
+    // 1️⃣ CRÉATION UTILISATEUR
+    // =============================
+    $username = strtolower($prenom . '.' . $nom);
+    $password = password_hash("123456", PASSWORD_DEFAULT);
+
     $stmt = $pdo->prepare("
-        INSERT INTO eleves (matricule, nom, prenom, date_naissance, sexe, classe_id, date_inscription)
-        VALUES (:matricule, :nom, :prenom, :date_naissance, :sexe, :classe_id, :date_inscription)
+        INSERT INTO utilisateurs (username, password_hash, role)
+        VALUES (?, ?, 'eleve')
     ");
+    $stmt->execute([$username, $password]);
+
+    $utilisateur_id = $pdo->lastInsertId();
+
+    // =============================
+    // 2️⃣ CRÉATION ÉLÈVE (CORRIGÉ)
+    // =============================
+    $stmt = $pdo->prepare("
+        INSERT INTO eleves
+        (utilisateur_id, matricule, nom, prenom, date_naissance, sexe, classe_id, date_inscription)
+        VALUES
+        (:utilisateur_id, :matricule, :nom, :prenom, :date_naissance, :sexe, :classe_id, :date_inscription)
+    ");
+
     $stmt->execute([
+        ':utilisateur_id'   => $utilisateur_id,
         ':matricule'        => $matricule,
         ':nom'              => $nom,
         ':prenom'           => $prenom,
@@ -63,64 +75,64 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ':date_inscription' => $date_inscription
     ]);
 
-    echo "Élève ajouté avec succès";
+    echo "Élève inscrit avec succès";
 }
 ?>
+
+
+
         <div class="div3">
             <div class="page">
                 <h2>Inscription / Réinscription Élève</h2>
 
-                <form id="matiereForm" method="POST" action="">
-                    <label for="matricule">Matricule :</label>
-                    <input type="text" id="matricule" name="matricule" required>
+<form method="POST">
 
-                    <label for="nom">Nom :</label>
-                    <input type="text" id="nom" name="nom" required>
+    <label>Matricule</label>
+    <input type="text" name="matricule" required>
 
-                    <label for="prenom">Prénom :</label>
-                    <input type="text" id="prenom" name="prenom" required>
+    <label>Nom</label>
+    <input type="text" name="nom" required>
 
-                    <label for="date_naissance">Date de naissance :</label>
-                    <input type="date" id="date_naissance" name="date_naissance" required>
+    <label>Prénom</label>
+    <input type="text" name="prenom" required>
 
-                    <label>Sexe :</label>
-                    <input type="radio" name="sexe" value="M" required> M
-                    <input type="radio" name="sexe" value="F"> F
+    <label>Date de naissance</label>
+    <input type="date" name="date_naissance" required>
 
-                    
-                    
+    <label>Sexe</label>
+    <label><input type="radio" name="sexe" value="M" required> M</label>
+    <label><input type="radio" name="sexe" value="F"> F</label>
 
-                    <label for="annee">Année scolaire :</label>
-                    <select id="annee" name="annee_id" required>
-                        <?php
-                        $stmt = $pdo->query("SELECT id, libelle FROM annee_scolaire WHERE actif = 1 ORDER BY date_debut DESC");
-                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<option value=\"{$row['id']}\">{$row['libelle']}</option>";
-                        }
-                        ?>
-                    </select>
+    <label>Classe</label>
+    <select name="classe_id" required>
+        <option value="" disabled selected>-- Choisir --</option>
+        <?php
+        $stmt = $pdo->query("
+            SELECT c.id, c.niveau, c.section
+            FROM classes c
+            JOIN annee_scolaire a ON a.id = c.annee_scolaire_id
+            WHERE a.actif = 1
+            ORDER BY c.niveau, c.section
+        ");
 
-                    <label for="classe">Classe :</label>
-                    <select id="classe" name="classe_id" required>
-                        <option value="" disabled selected>Choisissez une classe</option>
-                        <?php
-                        // 
-                        $stmt = $pdo->query("SELECT  `niveau` , `section` FROM `classes` WHERE 1");
-                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            $niveau = (int)$row['niveau'];
-                            $suffixe = ($niveau === 1) ? 'er' : 'ème';
-                            
-                            echo "<option value=\"{$row['niveau']}\">{$row['niveau']}{$suffixe} {$row['section']}</option>";
-                        }
-                        ?>
-                    </select>
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $niveau = (int)$row['niveau'];
+            $suffixe = ($niveau === 1) ? 'er' : 'ème';
 
-                    <label for="date_inscription">Date d'inscription :</label>
-                    <input type="date" id="date_inscription" name="date_inscription" required>
+            echo "<option value='{$row['id']}'>
+                    {$row['niveau']}{$suffixe} {$row['section']}
+                  </option>";
+        }
+        ?>
+    </select>
 
-                    <button type="submit">Enregistrer</button>
-                    <button type="button" onclick="annulerForm()">Annuler</button>
-                </form>
+    <label>Date d'inscription</label>
+    <input type="date" name="date_inscription" required>
+
+    <button type="submit">Enregistrer</button>
+</form>
+
+
             </div>
 
         </div>
