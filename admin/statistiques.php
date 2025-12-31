@@ -7,13 +7,6 @@
     <link rel="icon" type="image/png" href="../images/icone/CEG-fm.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f6f9;
-            color: #333;
-        }
-        .parent { display: flex; min201min-height: 100vh; }
         .div3 {
             flex: 1;
             padding: 30px;
@@ -124,7 +117,10 @@
 <body>
 
 <div class="parent">
-    <?php require_once('../include/header.php'); ?>
+        <?php 
+            require_once('../include/header.php'); 
+            require_once "../include/db.php"; 
+        ?>
 
     <div class="div3">
         <h1 class="page-title">Statistiques des Bulletins</h1>
@@ -133,22 +129,32 @@
         <!-- Filtres -->
         <div class="filters">
             <select id="annee">
-                <option>2024-2025</option>
-                <option>2023-2024</option>
-                <option>2022-2023</option>
+                <?php
+                $stmt = $pdo->query("SELECT id, libelle FROM annee_scolaire WHERE actif = 1 ORDER BY date_debut DESC");
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<option value=\"{$row['id']}\">{$row['libelle']}</option>";
+                }
+                ?>
             </select>
             <select id="trimestre">
-                <option>Tous les trimestres</option>
-                <option>1er Trimestre</option>
-                <option>2ème Trimestre</option>
-                <option>3ème Trimestre</option>
+                <option value="" disabled selected>Choisissez une periode</option>
+                <?php
+                // 
+                $stmt = $pdo->query("SELECT  `nom` as `libelle` FROM  `periodes` WHERE 1");
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<option value=\"{$row['id']}\">{$row['libelle']}</option>";
+                }
+                ?>
             </select>
             <select id="classe">
-                <option>Toutes les classes</option>
-                <option>6ème</option>
-                <option>5ème</option>
-                <option>4ème</option>
-                <option>3ème</option>
+                <option value="" disabled selected>Choisissez une classe</option>
+                <?php
+                // 
+                $stmt = $pdo->query("SELECT  `nom` as `libelle`, `niveau` FROM `classes` WHERE 1");
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<option value=\"{$row['id']}\">{$row['libelle']}</option>";
+                }
+                ?>
             </select>
             <button onclick="filtrer()">Appliquer le filtre</button>
         </div>

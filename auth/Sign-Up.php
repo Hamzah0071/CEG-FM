@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ':role'     => $role
     ]);
 
-    echo "Inscription OK";
+    // echo "Inscription OK";
 }
 ?>
 

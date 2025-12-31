@@ -32,30 +32,31 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
         </div>
 
         <ul class="menu">
-            <li class="titre-menu"><p>Menu</p></li>
 
         <?php if ($role === 'admin'): ?>
 
         <!-- ÉLÈVES -->
-            <a href="#" class="menu-item" style="background-color: #007bff;">
-                <img src="<?= $basePath ?>images/icone/icons8-étudiant-homme-64.png" alt="">
-                <span>Menus Élèves</span>
-            </a>
+        <span>
+            <i>Menus Élèves</i>
+        </span>
 
             <!-- <ul class="submenu"> -->
                 <li>
                     <a href="<?= $basePath ?>admin/liste-eleve.php" class="menu-item">
-                        <img src="<?= $basePath ?>images/icone/liste.png" alt=""> Liste des élèves
+                        <img src="<?= $basePath ?>images/icone/icons8-étudiant-homme-64.png" alt="">
+                        Liste des élèves
                     </a>
                 </li>
                 <li>
                     <a href="<?= $basePath ?>admin/inscription-eleve.php" class="menu-item">
-                        <img src="<?= $basePath ?>images/icone/inscription.png" alt=""> Inscription
+                        <img src="<?= $basePath ?>images/icone/inscription.png" alt="">
+                         Inscription
                     </a>
                 </li>
                 <li>
                     <a href="<?= $basePath ?>admin/certificat-scolarite.php" class="menu-item">
-                        <img src="<?= $basePath ?>images/icone/certificat.png" alt=""> Certificats
+                        <img src="<?= $basePath ?>images/icone/certificat.png" alt="">
+                         Certificats
                     </a>
                 </li>
             <!-- </ul> -->
@@ -63,10 +64,9 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
 
 
         <!-- PROFESSEURS -->
-            <a href="#" class="menu-item" style="background-color: #007bff;">
-                <img src="<?= $basePath ?>images/icone/professeur.png" alt="">
-                <span>Menus Professeurs</span>
-            </a>
+        <span>
+            <i>Menus Professeurs</i>
+        </span>
 
             <!-- <ul class="submenu"> -->
                 <li>
@@ -84,12 +84,9 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
 
 
         <!-- ORGANISATION -->
-        
-            <a href="#" class="menu-item"style="background-color: #007bff;">
-                <img src="<?= $basePath ?>images/icone/icons8-classe-50.png" alt="">
-                <span >Menus Organisation</span>
-                
-            </a>
+        <span>
+            <i>Menus Professeurs</i>
+        </span>
 
             <!-- <ul class="submenu"> -->
                 <li>
@@ -112,11 +109,9 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
 
 
         <!-- NOTES / BULLETINS -->
-            <a href="#" class="menu-item" style="background-color: #007bff;">
-                <img src="<?= $basePath ?>images/icone/icons8-stylo-64.png" alt="">
-                <span>Menus Notes & bulletins</span>
-                
-            </a>
+        <span>
+            <i>Menus Notes & bulletins</i>
+        </span>
 
             <!-- <ul class="submenu"> -->
                 <li>

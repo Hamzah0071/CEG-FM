@@ -1,0 +1,145 @@
+/* =========================
+   BASE
+========================= */
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.page h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* =========================
+   FORMULAIRE
+========================= */
+form {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 20px;
+}
+
+/* Labels */
+form label {
+  grid-column: span 2;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* Inputs & Select */
+form input[type="text"],
+form input[type="date"],
+form select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input:focus,
+form select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* =========================
+   RADIO SEXE
+========================= */
+form input[type="radio"] {
+  margin-right: 6px;
+}
+
+form label + input[type="radio"] {
+  margin-left: 10px;
+}
+
+form label[for="date_naissance"],
+form label[for="classe"],
+form label[for="annee"],
+form label[for="date_inscription"] {
+  margin-top: 10px;
+}
+
+/* =========================
+   BOUTONS
+========================= */
+form button {
+  grid-column: span 1;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 500;
+
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+/* Bouton principal */
+form button[type="submit"] {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+form button[type="submit"]:hover {
+  background: #1e40af;
+}
+
+/* Bouton annuler */
+form button[type="button"] {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+form button[type="button"]:hover {
+  background: #d1d5db;
+}
+
+/* =========================
+   MESSAGE / FEEDBACK (si tu ajoutes plus tard)
+========================= */
+.form-message {
+  margin-top: 15px;
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.form-success {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.form-error {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 700px) {
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  form label,
+  form button {
+    grid-column: span 1;
+  }
+}
