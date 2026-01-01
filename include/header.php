@@ -113,7 +113,8 @@ $basePath = in_array($dirName, ['admin', 'prof', 'eleve']) ? '../' : './';
             <!-- <ul class="submenu"> -->
                 <li>
                     <a href="<?= $basePath ?>admin/liste-classe.php" class="menu-item">
-                        <img src="<?= $basePath ?>images/icone/icons8-classe-50.png" alt=""> Classes
+                        <img src="<?= $basePath ?>images/icone/icons8-classe-50.png" alt="">
+                         Classes
                     </a>
                 </li>
                 <li>

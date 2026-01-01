@@ -10,10 +10,53 @@
 </head>
 <body>
    <div class="parent">
-        <?php require_once('../include/header.php'); ?>
-        <div class="div3">
-            <!-- ton contenu -->
-        </div>
-    </div>
-</body>
-</html>
+        <?php
+require_once '../include/auth.php';
+requireRole(['admin']);
+require_once '../include/db.php';
+
+/* =========================
+   VALIDATION ID
+========================= */
+$id = (int)($_GET['id'] ?? 0);
+
+if ($id <= 0) {
+    die('ID utilisateur invalide');
+}
+
+/* =========================
+   EMPÊCHER AUTO-SUPPRESSION
+========================= */
+if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $id) {
+    die('Vous ne pouvez pas supprimer votre propre compte');
+}
+
+/* =========================
+   VÉRIFIER EXISTENCE
+========================= */
+$stmt = $pdo->prepare("
+    SELECT id
+    FROM utilisateurs
+    WHERE id = ?
+");
+$stmt->execute([$id]);
+
+if (!$stmt->fetch()) {
+    die('Utilisateur introuvable');
+}
+
+/* =========================
+   SUPPRESSION
+========================= */
+$stmt = $pdo->prepare("
+    DELETE FROM utilisateurs
+    WHERE id = ?
+");
+$stmt->execute([$id]);
+
+/* =========================
+   REDIRECTION
+========================= */
+header('Location: utilisateurs.php');
+exit;
+        ?>

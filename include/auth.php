@@ -1,12 +1,10 @@
 <?php
-function requireRole($roles)
-{
-    if (!isset($_SESSION['role'])) {
-        header('Location: ../auth/login.php');
-        exit;
-    }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-    if (!in_array($_SESSION['role'], (array)$roles)) {
-        exit("Accès refusé");
+function requireRole(array $roles) {
+    if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $roles)) {
+        die('Accès refusé');
     }
 }
