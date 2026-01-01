@@ -1,11 +1,19 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $role = $_SESSION['role'] ?? 'guest';
 $username = $_SESSION['username'] ?? 'Invité';
 
+$roleLabel = [
+    'admin' => 'Administrateur',
+    'prof'  => 'Professeur',
+    'eleve' => 'Élève'
+][$role] ?? 'Invité';
+
 $dirName = basename(dirname($_SERVER['SCRIPT_FILENAME']));
-$basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve') ? '../' : './';
+$basePath = in_array($dirName, ['admin', 'prof', 'eleve']) ? '../' : './';
 ?>
 
 <!DOCTYPE html>
@@ -116,6 +124,12 @@ $basePath = ($dirName === 'admin' || $dirName === 'prof' || $dirName === 'eleve'
                 <li>
                     <a href="<?= $basePath ?>admin/calendrier.php" class="menu-item">
                         <img src="<?= $basePath ?>images/icone/calendrier.png" alt=""> Calendrier
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= $basePath ?>admin/utilisateurs.php" class="menu-item">
+                        <img src="<?= $basePath ?>images/icone/icons8-utilisateur-64.png" alt="">
+                        Comptes utilisateurs
                     </a>
                 </li>
             <!-- </ul> -->

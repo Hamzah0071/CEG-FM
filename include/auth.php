@@ -1,25 +1,12 @@
-<!-- vérifie les sessions / rôles --><?php
-// auth.php
-session_start();
-
-/**
- * Vérifie que l'utilisateur est connecté
- */
-if (!isset($_SESSION['user_id'])) {
-    header("Location: /auth/Sign-In.php");
-    exit;
-}
-
-/**
- * Vérifie le rôle si demandé
- * Utilisation :
- *   require 'auth.php'; // juste connecté
- *   require 'auth.php'; checkRole('admin');
- */
-function checkRole(string $role): void
+<?php
+function requireRole($roles)
 {
-    if (!isset($_SESSION['role']) || $_SESSION['role'] !== $role) {
-        http_response_code(403);
-        die("Accès refusé");
+    if (!isset($_SESSION['role'])) {
+        header('Location: ../auth/login.php');
+        exit;
+    }
+
+    if (!in_array($_SESSION['role'], (array)$roles)) {
+        exit("Accès refusé");
     }
 }
