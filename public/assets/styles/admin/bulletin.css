@@ -1,0 +1,72 @@
+/* ==================================================================
+   En-tête du bulletin – Centré et stylisé
+   ================================================================== */
+
+.page {
+    /* font-family: 'Times New Roman', Times, serif; */
+    background: #ffffff;
+    min-height: 100vh;
+    padding: 20px;
+}
+.top h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000000;
+}
+
+.top h4 {
+    margin: 12px 0 8px;
+    font-size: 18px;
+    font-weight: normal;
+    color: #333333;
+    text-transform: uppercase;
+}
+
+.top p {
+    margin: 8px 0 25px;
+    font-size: 15px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.top h1 {
+    margin: 20px 0 0;
+    font-size: 36px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #000000;
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    padding: 12px 0;
+    display: inline-block;
+    width: auto;
+}
+/* ============================================== */
+.table-notes {
+    width: 100%;
+    margin-top: 15px;
+    border: 1px solid #000;
+}
+
+/* Bordure des cellules */
+.table-notes th, 
+.table-notes td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: center;
+}
+
+/* En-tête */
+.table-notes thead th {
+    background: #ffffff;
+    font-weight: bold;
+}
+
+/* Ligne total */
+.table-notes .total td {
+    background: #fdfdfd;
+}

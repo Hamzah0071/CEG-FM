@@ -1,0 +1,130 @@
+/* @import url(./style.css); */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.layout-container {
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.left-section {
+    flex: 2;
+    min-width: 300px;
+}
+
+.right-section {
+    flex: 1;
+    min-width: 300px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.right-section h3 {
+    margin-bottom: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.right-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.right-section label {
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.right-section input {
+    margin: 0;
+    padding: 10px 15px;
+}
+
+.right-section button {
+    margin-top: 10px;
+}
+
+.table {
+    font-family: 'Times New Roman', Times, serif;
+    overflow: hidden;
+}
+
+.table-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 20px;
+    background-color: #e4f1ff;
+    margin-bottom: 20px;
+}
+
+button {
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.add-new {
+    padding: 10px 20px;
+    color: #e4f1ff;
+    background-color: #2563eb;
+    border-radius: 20px;
+}
+
+input {
+    padding: 10px 20px;
+    outline: none;
+    border: 1px solid #2563eb;
+    border-radius: 6px;
+}
+
+.table-section {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    background-color: #2563eb;
+    color: #e4f1ff;
+    z-index: 1;
+}
+
+th, td {
+    text-align: left;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+::placeholder {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.add-form {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.add-form input {
+    margin: 5px 10px;
+    width: calc(50% - 20px);
+}
+
+.add-form button {
+    margin: 10px 0;
+}

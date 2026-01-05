@@ -1,0 +1,39 @@
+📁 Racine du site
+└── /social-prof-comunication/
+
+    📁 Pages publiques (PUBLIC_URL)
+    └── /social-prof-comunication/public/
+        ├── index.php
+        └── assets/
+            ├── styles/
+            ├── scripts/
+            ├── images/
+            └── icon/
+
+    📁 Pages applicatives (APP_URL)
+    └── /social-prof-comunication/app/
+        ├── auth/
+        │   ├── Sign-In.php
+        │   ├── Sign-Up.php
+        │   └── logout.php
+        │
+        ├── admin/
+        │   ├── eleves/
+        │   ├── professeurs/
+        │   ├── organisation/
+        │   └── notes/
+        │
+        ├── prof/
+        │   ├── mes-classes.php
+        │   ├── saisie-notes.php
+        │   └── ...
+        │
+        ├── eleve/
+        │   ├── accueil.php
+        │   ├── mes-notes.php
+        │   └── ...
+        │
+        └── include/
+            ├── header.php
+            ├── footer.php
+            └── auth_check.php
