@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide BDD CEG FM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: #764ba2;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .table-schema {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .table-schema h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .field {
+            display: grid;
+            grid-template-columns: 200px 150px 1fr;
+            gap: 15px;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .field:last-child {
+            border-bottom: none;
+        }
+
+        .field-name {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .field-type {
+            color: #764ba2;
+            font-family: monospace;
+        }
+
+        .field-desc {
+            color: #666;
+        }
+
+        .example-code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .example-code .keyword {
+            color: #ff79c6;
+        }
+
+        .example-code .string {
+            color: #50fa7b;
+        }
+
+        .example-code .comment {
+            color: #6272a4;
+        }
+
+        .example-code .function {
+            color: #8be9fd;
+        }
+
+        .relationship {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f0f7ff;
+            border-radius: 8px;
+        }
+
+        .table-box {
+            background: white;
+            padding: 15px 25px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .arrow {
+            font-size: 24px;
+            color: #764ba2;
+        }
+
+        .tip {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .tip strong {
+            color: #856404;
+        }
+
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning strong {
+            color: #721c24;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .success strong {
+            color: #155724;
+        }
+
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .field {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            .relationship {
+                flex-direction: column;
+            }
+
+            .nav {
+                flex-direction: column;
+            }
+        }
+
+        .quick-ref {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .quick-ref-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .quick-ref-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .quick-ref-card h3 {
+            color: white;
+            margin: 0 0 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Guide Base de Données CEG FM</h1>
+            <p>Tout comprendre sans l'aide d'une IA</p>
+        </div>
+
+        <div class="nav">
+            <button class="nav-btn active" onclick="showSection('intro')">📖 Introduction</button>
+            <button class="nav-btn" onclick="showSection('structure')">🏗️ Structure</button>
+            <button class="nav-btn" onclick="showSection('relations')">🔗 Relations</button>
+            <button class="nav-btn" onclick="showSection('exemples')">💻 Exemples SQL</button>
+            <button class="nav-btn" onclick="showSection('php')">🐘 Exemples PHP</button>
+            <button class="nav-btn" onclick="showSection('scenarios')">🎯 Scénarios</button>
+        </div>
+
+        <div class="content">
+            <!-- SECTION INTRODUCTION -->
+            <div id="intro" class="section active">
+                <div class="card">
+                    <h2>🎓 Bienvenue dans votre Base de Données</h2>
+                    <p>Cette base de données gère tout le système scolaire du CEG FM. Voici les concepts clés :</p>
+
+                    <div class="quick-ref">
+                        <div class="quick-ref-card">
+                            <h3>👥 Les Personnes</h3>
+                            <p>Infos communes à tous (nom, prénom, date de naissance...)</p>
+                        </div>
+                        <div class="quick-ref-card">
+                            <h3>🔐 Les Comptes</h3>
+                            <p>Login, mot de passe, rôle (admin, prof, élève)</p>
+                        </div>
+                        <div class="quick-ref-card">
+                            <h3>📅 Année Scolaire</h3>
+                            <p>Période de référence pour tout le système</p>
+                        </div>
+                        <div class="quick-ref-card">
+                            <h3>🎒 Classes</h3>
+                            <p>Groupes d'élèves par niveau</p>
+                        </div>
+                    </div>
+
+                    <h3>🔑 Concept Fondamental : La Séparation</h3>
+                    <div class="tip">
+                        <strong>💡 Astuce :</strong> La base est organisée en 3 niveaux :
+                        <ol style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>personnes</strong> = Informations personnelles (identité)</li>
+                            <li><strong>utilisateurs</strong> = Compte de connexion (email, mot de passe)</li>
+                            <li><strong>eleves/professeurs</strong> = Rôle spécifique (matricule, infos pro)</li>
+                        </ol>
+                    </div>
+
+                    <h3>📊 Pourquoi cette organisation ?</h3>
+                    <p>Imaginons Jean DUPONT :</p>
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Table personnes</strong><br>
+                                Jean DUPONT, né le 15/03/1995, Masculin, tél: 034...
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Table utilisateurs</strong><br>
+                                Email: jean.dupont@ceg.mg, Rôle: prof, Statut: actif
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <strong>Table professeurs</strong><br>
+                                Matricule: PROF2024001, Spécialité: Mathématiques
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="success">
+                        <strong>✅ Avantage :</strong> Si Jean change d'email ou de téléphone, on modifie une seule table. Son identité et son rôle restent intacts !
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION STRUCTURE -->
+            <div id="structure" class="section">
+                <div class="card">
+                    <h2>🏗️ Structure Détaillée des Tables</h2>
+
+                    <div class="table-schema">
+                        <h4>1️⃣ TABLE : personnes</h4>
+                        <p><strong>Rôle :</strong> Stocker l'identité de toute personne (élève, prof, admin)</p>
+                        <div class="field">
+                            <span class="field-name">id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Identifiant unique (clé primaire)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">nom</span>
+                            <span class="field-type">VARCHAR(50)</span>
+                            <span class="field-desc">Nom de famille en MAJUSCULES</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">prenom</span>
+                            <span class="field-type">VARCHAR(50)</span>
+                            <span class="field-desc">Prénom(s)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">date_naissance</span>
+                            <span class="field-type">DATE</span>
+                            <span class="field-desc">Format : YYYY-MM-DD (ex: 1995-03-15)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">sexe</span>
+                            <span class="field-type">ENUM('M','F')</span>
+                            <span class="field-desc">M = Masculin, F = Féminin</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">telephone</span>
+                            <span class="field-type">VARCHAR(15)</span>
+                            <span class="field-desc">Numéro de téléphone</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">adresse</span>
+                            <span class="field-type">TEXT</span>
+                            <span class="field-desc">Adresse complète</span>
+                        </div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>2️⃣ TABLE : utilisateurs</h4>
+                        <p><strong>Rôle :</strong> Gérer les comptes de connexion</p>
+                        <div class="field">
+                            <span class="field-name">id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Identifiant unique du compte</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">personne_id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Lien vers personnes (qui est-ce ?)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">email</span>
+                            <span class="field-type">VARCHAR(150)</span>
+                            <span class="field-desc">Email de connexion (unique)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">password_hash</span>
+                            <span class="field-type">VARCHAR(255)</span>
+                            <span class="field-desc">Mot de passe crypté (jamais en clair !)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">role</span>
+                            <span class="field-type">ENUM</span>
+                            <span class="field-desc">admin, prof, eleve, parent</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">statut</span>
+                            <span class="field-type">ENUM</span>
+                            <span class="field-desc">en_attente, actif, refuse, suspendu</span>
+                        </div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>3️⃣ TABLE : eleves</h4>
+                        <p><strong>Rôle :</strong> Informations spécifiques aux élèves</p>
+                        <div class="field">
+                            <span class="field-name">id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Identifiant unique de l'élève</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">utilisateur_id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Lien vers utilisateurs</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">personne_id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Lien vers personnes</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">matricule</span>
+                            <span class="field-type">VARCHAR(20)</span>
+                            <span class="field-desc">Ex: ELEV2024001</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">nom_parent</span>
+                            <span class="field-type">VARCHAR(100)</span>
+                            <span class="field-desc">Nom du parent/tuteur</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">telephone_parent</span>
+                            <span class="field-type">VARCHAR(15)</span>
+                            <span class="field-desc">Contact d'urgence</span>
+                        </div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>4️⃣ TABLE : professeurs</h4>
+                        <p><strong>Rôle :</strong> Informations spécifiques aux profs</p>
+                        <div class="field">
+                            <span class="field-name">matricule</span>
+                            <span class="field-type">VARCHAR(20)</span>
+                            <span class="field-desc">Ex: PROF2024001</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">specialite</span>
+                            <span class="field-type">VARCHAR(50)</span>
+                            <span class="field-desc">Mathématiques, Français...</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">date_recrutement</span>
+                            <span class="field-type">DATE</span>
+                            <span class="field-desc">Date d'embauche</span>
+                        </div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>5️⃣ TABLE : annee_scolaire</h4>
+                        <p><strong>Rôle :</strong> Définir les années (2024-2025, 2025-2026...)</p>
+                        <div class="warning">
+                            <strong>⚠️ Important :</strong> Une seule année peut être active à la fois !
+                        </div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>6️⃣ TABLE : classes</h4>
+                        <p><strong>Rôle :</strong> Définir les classes (6ème A, 5ème B...)</p>
+                        <div class="field">
+                            <span class="field-name">nom</span>
+                            <span class="field-type">VARCHAR(20)</span>
+                            <span class="field-desc">A, B, C...</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">niveau</span>
+                            <span class="field-type">VARCHAR(10)</span>
+                            <span class="field-desc">6ème, 5ème, 4ème, 3ème</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">annee_scolaire_id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Lien vers l'année</span>
+                        </div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>7️⃣ TABLE : inscriptions</h4>
+                        <p><strong>Rôle :</strong> Enregistrer quel élève est dans quelle classe, quelle année</p>
+                        <div class="tip">
+                            <strong>💡 Pourquoi une table séparée ?</strong><br>
+                            Un élève peut changer de classe chaque année. Cette table garde l'historique !
+                        </div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>8️⃣ TABLE : affectations_prof</h4>
+                        <p><strong>Rôle :</strong> Qui enseigne quoi, où et quand</p>
+                        <div class="field">
+                            <span class="field-name">prof_id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Quel professeur ?</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">classe_id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Dans quelle classe ?</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">matiere_id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Quelle matière ?</span>
+                        </div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>9️⃣ TABLE : notes</h4>
+                        <p><strong>Rôle :</strong> Stocker toutes les notes</p>
+                        <div class="field">
+                            <span class="field-name">inscription_id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Pour quel élève-classe-année ?</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">affectation_id</span>
+                            <span class="field-type">INT</span>
+                            <span class="field-desc">Dans quel cours (prof+matière+classe) ?</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">valeur</span>
+                            <span class="field-type">DECIMAL(4,2)</span>
+                            <span class="field-desc">La note (ex: 15.50)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">sur_combien</span>
+                            <span class="field-type">DECIMAL(4,2)</span>
+                            <span class="field-desc">Sur 20 ? Sur 10 ? (défaut: 20)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION RELATIONS -->
+            <div id="relations" class="section">
+                <div class="card">
+                    <h2>🔗 Comment les Tables se Connectent</h2>
+
+                    <h3>Relation 1 : Personne → Utilisateur → Élève</h3>
+                    <div class="relationship">
+                        <div class="table-box">personnes<br><small>id = 1</small></div>
+                        <div class="arrow">→</div>
+                        <div class="table-box">utilisateurs<br><small>personne_id = 1</small></div>
+                        <div class="arrow">→</div>
+                        <div class="table-box">eleves<br><small>utilisateur_id = 5</small></div>
+                    </div>
+                    <p><strong>Signification :</strong> La personne #1 a un compte utilisateur qui est un élève.</p>
+
+                    <h3>Relation 2 : Élève → Inscription → Classe</h3>
+                    <div class="relationship">
+                        <div class="table-box">eleves<br><small>id = 10</small></div>
+                        <div class="arrow">→</div>
+                        <div class="table-box">inscriptions<br><small>eleve_id = 10<br>classe_id = 3</small></div>
+                        <div class="arrow">→</div>
+                        <div class="table-box">classes<br><small>id = 3<br>6ème A</small></div>
+                    </div>
+                    <p><strong>Signification :</strong> L'élève #10 est inscrit en 6ème A cette année.</p>
+
+                    <h3>Relation 3 : Prof → Affectation → Classe + Matière</h3>
+                    <div class="relationship">
+                        <div class="table-box">professeurs<br><small>id = 2</small></div>
+                        <div class="arrow">→</div>
+                        <div class="table-box">affectations_prof<br><small>prof_id = 2<br>classe_id = 3<br>matiere_id = 1</small></div>
+                        <div class="arrow">→</div>
+                        <div class="table-box">Cours<br><small>Math en 6ème A</small></div>
+                    </div>
+                    <p><strong>Signification :</strong> Le prof #2 enseigne les Maths en 6ème A.</p>
+
+                    <h3>Relation 4 : Note complète</h3>
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                L'élève Jean (eleves.id = 10) est inscrit en 6ème A (inscriptions.id = 50)
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                Le prof Rakoto (prof.id = 2) enseigne Math en 6ème A (affectations.id = 15)
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                Jean a eu 15/20 en Math (notes: inscription_id=50, affectation_id=15, valeur=15)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 Règle d'or :</strong> Pour lier deux tables, cherchez toujours un champ qui finit par "_id" !
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION EXEMPLES SQL -->
+            <div id="exemples" class="section">
+                <div class="card">
+                    <h2>💻 Exemples SQL Pratiques</h2>
+
+                    <h3>Exemple 1 : Récupérer tous les élèves</h3>
+                    <div class="example-code"><span class="keyword">SELECT</span> 
+    e.id, 
+    p.nom, 
+    p.prenom, 
+    e.matricule, 
+    u.email
+<span class="keyword">FROM</span> eleves e
+<span class="keyword">JOIN</span> personnes p <span class="keyword">ON</span> e.personne_id = p.id
+<span class="keyword">JOIN</span> utilisateurs u <span class="keyword">ON</span> e.utilisateur_id = u.id
+<span class="keyword">WHERE</span> e.deleted_at <span class="keyword">IS NULL</span>;</div>
+
+                    <div class="tip">
+                        <strong>📝 Explication ligne par ligne :</strong>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>SELECT</strong> : Choisir les colonnes à afficher</li>
+                            <li><strong>FROM eleves e</strong> : Table principale (e = alias)</li>
+                            <li><strong>JOIN personnes p ON...</strong> : Connecter avec personnes via personne_id</li>
+                            <li><strong>JOIN utilisateurs u ON...</strong> : Connecter avec utilisateurs via utilisateur_id</li>
+                            <li><strong>WHERE deleted_at IS NULL</strong> : Ignorer les supprimés</li>
+                        </ul>
+                    </div>
+
+                    <h3>Exemple 2 : Élèves d'une classe</h3>
+                    <div class="example-code"><span class="keyword">SELECT</span> 
+    p.nom,
+    p.prenom,
+    CONCAT(c.niveau, <span class="string">' '</span>, c.nom) <span class="keyword">AS</span> classe
+<span class="keyword">FROM</span> eleves e
+<span class="keyword">JOIN</span> personnes p <span class="keyword">ON</span> e.personne_id = p.id
+<span class="keyword">JOIN</span> inscriptions i <span class="keyword">
+                        <div class="example-code"><span class="keyword">SELECT</span> 
+    p.nom,
+    p.prenom,
+    CONCAT(c.niveau, <span class="string">' '</span>, c.nom) <span class="keyword">AS</span> classe
+<span class="keyword">FROM</span> eleves e
+<span class="keyword">JOIN</span> personnes p <span class="keyword">ON</span> e.personne_id = p.id
+<span class="keyword">JOIN</span> inscriptions i <span class="keyword">ON</span> i.eleve_id = e.id
+<span class="keyword">JOIN</span> classes c <span class="keyword">ON</span> i.classe_id = c.id
+<span class="keyword">JOIN</span> annee_scolaire a <span class="keyword">ON</span> c.annee_scolaire_id = a.id
+<span class="keyword">WHERE</span> a.actif = <span class="string">1</span>;</div>
+
+                    <h3>Exemple 3 : Notes d'un élève dans l'année active</h3>
+                    <div class="example-code"><span class="keyword">SELECT</span>
+    m.nom <span class="keyword">AS</span> matiere,
+    p.nom <span class="keyword">AS</span> nom_prof,
+    p.prenom <span class="keyword">AS</span> prenom_prof,
+    n.valeur,
+    n.sur_combien
+<span class="keyword">FROM</span> notes n
+<span class="keyword">JOIN</span> inscriptions i <span class="keyword">ON</span> n.inscription_id = i.id
+<span class="keyword">JOIN</span> affectations_prof ap <span class="keyword">ON</span> n.affectation_id = ap.id
+<span class="keyword">JOIN</span> matieres m <span class="keyword">ON</span> ap.matiere_id = m.id
+<span class="keyword">JOIN</span> professeurs prof <span class="keyword">ON</span> ap.prof_id = prof.id
+<span class="keyword">JOIN</span> personnes p <span class="keyword">ON</span> prof.personne_id = p.id
+<span class="keyword">WHERE</span> i.eleve_id = <span class="string">10</span>  <span class="comment">-- ID de l'élève</span>
+<span class="keyword">AND</span> i.annee_scolaire_id = (SELECT id FROM annee_scolaire WHERE actif = 1);</div>
+
+                    <h3>Exemple 4 : Moyenne par matière pour un élève</h3>
+                    <div class="example-code"><span class="keyword">SELECT</span>
+    m.nom <span class="keyword">AS</span> matiere,
+    ROUND(AVG(n.valeur), 2) <span class="keyword">AS</span> moyenne
+<span class="keyword">FROM</span> notes n
+<span class="keyword">JOIN</span> affectations_prof ap <span class="keyword">ON</span> n.affectation_id = ap.id
+<span class="keyword">JOIN</span> matieres m <span class="keyword">ON</span> ap.matiere_id = m.id
+<span class="keyword">JOIN</span> inscriptions i <span class="keyword">ON</span> n.inscription_id = i.id
+<span class="keyword">WHERE</span> i.eleve_id = <span class="string">10</span>
+<span class="keyword">GROUP BY</span> m.nom
+<span class="keyword">ORDER BY</span> moyenne <span class="keyword">DESC</span>;</div>
+                </div>
+            </div>
+
+            <!-- SECTION EXEMPLES PHP -->
+            <div id="php" class="section">
+                <div class="card">
+                    <h2>🐘 Exemples PHP (avec PDO)</h2>
+
+                    <h3>Connexion à la base (config commune)</h3>
+                    <div class="example-code"><span class="keyword">$dsn</span> = <span class="string">'mysql:host=localhost;dbname=ceg_fm;charset=utf8mb4'</span>;<br>
+<span class="keyword">$options</span> = [<br>
+&nbsp;&nbsp;PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,<br>
+&nbsp;&nbsp;PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC<br>
+];<br>
+<span class="keyword">try</span> {<br>
+&nbsp;&nbsp;<span class="keyword">$pdo</span> = <span class="keyword">new</span> PDO(<span class="keyword">$dsn</span>, <span class="string">'user'</span>, <span class="string">'password'</span>, <span class="keyword">$options</span>);<br>
+} <span class="keyword">catch</span> (PDOException <span class="keyword">$e</span>) {<br>
+&nbsp;&nbsp;<span class="keyword">die</span>(<span class="string">'Erreur connexion : '</span> . <span class="keyword">$e</span>-&gt;getMessage());<br>
+}</div>
+
+                    <h3>Exemple 1 : Lister les élèves d'une classe (année active)</h3>
+                    <div class="example-code"><span class="keyword">$sql</span> = <span class="string">"SELECT p.nom, p.prenom, e.matricule, c.niveau, c.nom AS classe_nom
+FROM eleves e
+JOIN personnes p ON e.personne_id = p.id
+JOIN inscriptions i ON i.eleve_id = e.id
+JOIN classes c ON i.classe_id = c.id
+JOIN annee_scolaire a ON c.annee_scolaire_id = a.id
+WHERE a.actif = 1 AND c.id = :classe_id
+ORDER BY p.nom"</span>;<br>
+<span class="keyword">$stmt</span> = <span class="keyword">$pdo</span>-&gt;prepare(<span class="keyword">$sql</span>);<br>
+<span class="keyword">$stmt</span>-&gt;execute([<span class="string">'classe_id'</span> =&gt; <span class="string">3</span>]);<br>
+<span class="keyword">$eleves</span> = <span class="keyword">$stmt</span>-&gt;fetchAll();</div>
+
+                    <h3>Exemple 2 : Insérer une note (sécurisé)</h3>
+                    <div class="example-code"><span class="keyword">$sql</span> = <span class="string">"INSERT INTO notes (inscription_id, affectation_id, valeur, sur_combien)
+VALUES (:inscription, :affectation, :valeur, :sur)"</span>;<br>
+<span class="keyword">$stmt</span> = <span class="keyword">$pdo</span>-&gt;prepare(<span class="keyword">$sql</span>);<br>
+<span class="keyword">$stmt</span>-&gt;execute([<br>
+&nbsp;&nbsp;<span class="string">'inscription'</span> =&gt; <span class="string">50</span>,<br>
+&nbsp;&nbsp;<span class="string">'affectation'</span> =&gt; <span class="string">15</span>,<br>
+&nbsp;&nbsp;<span class="string">'valeur'</span> =&gt; 16.5,<br>
+&nbsp;&nbsp;<span class="string">'sur'</span> =&gt; 20<br>
+]);<br>
+<span class="keyword">echo</span> <span class="string">"Note enregistrée !"</span>;</div>
+
+                    <div class="warning">
+                        <strong>⚠️ Toujours utiliser prepare() + execute()</strong> pour éviter les injections SQL !
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION SCENARIOS -->
+            <div id="scenarios" class="section">
+                <div class="card">
+                    <h2>🎯 Scénarios Courants Expliqués</h2>
+
+                    <h3>Scénario 1 : Inscrire un nouvel élève</h3>
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">Insérer dans <strong>personnes</strong> → récupérer l’id</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">Insérer dans <strong>utilisateurs</strong> (email, password_hash, rôle=eleve)</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">Insérer dans <strong>eleves</strong> avec les deux ids + matricule</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">Insérer dans <strong>inscriptions</strong> (eleve_id + classe_id de l’année active)</div>
+                        </div>
+                    </div>
+
+                    <h3>Scénario 2 : Changer un élève de classe l’année suivante</h3>
+                    <div class="tip">
+                        <strong>💡 Simple :</strong> Il suffit d’ajouter une nouvelle ligne dans <strong>inscriptions</strong> pour la nouvelle année/classe. L’ancienne reste pour l’historique !
+                    </div>
+
+                    <h3>Scénario 3 : Supprimer logiquement un utilisateur</h3>
+                    <div class="success">
+                        <strong>✅ Bonne pratique :</strong> Ne jamais DELETE physique. Ajouter un champ <code>deleted_at</code> (soft delete) dans les tables concernées et filtrer avec <code>WHERE deleted_at IS NULL</code>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.nav-btn[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

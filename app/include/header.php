@@ -75,7 +75,7 @@ if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image']) && f
                 <div class="menu-section">
                     <span class="menu-title"><i class="fa-solid fa-chalkboard-user"></i> Gestion Professeurs</span>
                     <ul>
-                         <a href="<?= APP_URL ?>admin/professeurs/liste-prof.php" class="menu-item">
+                         <a href="<?= APP_URL ?>admin/professeurs/liste-professeurs.php" class="menu-item">
                             <i class="fa-solid fa-list-check"></i> Liste des profs</a> 
                          <a href="<?= APP_URL ?>admin/professeurs/recrutement.php" class="menu-item">
                             <i class="fa-solid fa-user-tie"></i> Recrutement</a> 
@@ -157,29 +157,30 @@ if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image']) && f
         <div class="topbar-right">
             <div class="notification-icon">
                 <i class="fa-solid fa-bell"></i>
-                <span class="badge">3</span>
+                <span class="badge">33</span>
             </div>
 
             <div class="user-profile dropdown">  <!-- Ajoute class="dropdown" ici -->
-    <img src="<?= htmlspecialchars($profileImage) ?>" alt="Photo de profil" class="profile-img">
-    
-    <button class="dropdown-toggle btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <!-- btn pour style Bootstrap, type="button" obligatoire -->
-        <span class="username"><?= htmlspecialchars($username) ?></span>
-        <small class="user-role"><?= htmlspecialchars($roleLabel) ?></small>
-        <i class="fa-solid fa-chevron-down"></i>
-    </button>
-    
-    <ul class="dropdown-menu">  <!-- Change div en ul/li pour vrai Bootstrap -->
-        <li><a href="<?= APP_URL ?>profil.php" class="dropdown-item">
-            <i class="fa-solid fa-user"></i> Mon profil</a></li>
-        <li><a href="<?= APP_URL ?>parametres.php" class="dropdown-item">
-            <i class="fa-solid fa-gear"></i> Paramètres</a></li>
-        <li><hr class="dropdown-divider"></li>  <!-- Divider Bootstrap -->
-        <li><a href="<?= APP_URL ?>auth/logout.php" class="dropdown-item logout">
-            <i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a></li>
-    </ul>
-</div>
+                <img src="../../public/assets/images/CEG-fm.png" alt="Photo de profil" class="profile-img">    
+                <img src="<?= htmlspecialchars($profileImage) ?>" alt="Photo de profil" class="profile-img">
+                
+                <button class="dropdown-toggle btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <!-- btn pour style Bootstrap, type="button" obligatoire -->
+                    <span class="username"><?= htmlspecialchars($username) ?></span>
+                    <small class="user-role"><?= htmlspecialchars($roleLabel) ?></small>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                
+                <ul class="dropdown-menu">  <!-- Change div en ul/li pour vrai Bootstrap -->
+                    <li><a href="<?= APP_URL ?>profil.php" class="dropdown-item">
+                        <i class="fa-solid fa-user"></i> Mon profil</a></li>
+                    <li><a href="<?= APP_URL ?>parametres.php" class="dropdown-item">
+                        <i class="fa-solid fa-gear"></i> Paramètres</a></li>
+                    <li><hr class="dropdown-divider"></li>  <!-- Divider Bootstrap -->
+                    <li><a href="<?= APP_URL ?>auth/logout.php" class="dropdown-item logout">
+                        <i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a></li>
+                </ul>
+            </div>
         </div>
     </header>
 

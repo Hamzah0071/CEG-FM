@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CEG-Francoi de mahy</title>
     <link rel="stylesheet" href="<?= $basePath ?>styles/style.css">
-    <link rel="stylesheet" href="../styles/calendrier/index.css" />
+    <link rel="stylesheet" href="<?= $basePath ?>styles/calendrier/index.css" />
    
     <link rel="icon" type="image/png" href="../images/icone/CEG-fm.png">
 </head>
@@ -13,7 +13,12 @@
     <div class="parent">
 
         <?php
-        require_once('../include/header.php'); // chemin relatif selon le dossier
+        // require_once('./app/config/db.php');
+        require_once __DIR__ . '/../../include/auth_check.php';
+        require_role('admin');
+
+        $pageTitle = 'Liste des Élèves';
+        require_once __DIR__ . '/../../include/header.php';
         ?>
 
         <div class="div3">

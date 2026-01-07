@@ -19,7 +19,7 @@
         ?>
 
         <div class="div3">
-            <h1>LISTE DES ELEVES</h1>
+            <h1>EMPLOI DU TEMPS</h1>
             
             <div class="card">
                 <div class="card-header">Test Card</div>

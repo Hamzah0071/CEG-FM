@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Complet BDD CEG FM - Version Définitive</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.8rem; margin-bottom: 10px; }
+        .header p { font-size: 1.2rem; opacity: 0.9; }
+        .nav {
+            display: flex;
+            gap: 12px;
+            padding: 25px;
+            background: #f8f9fa;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover { background: #5568d3; transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        .nav-btn.active { background: #764ba2; transform: translateY(-3px); }
+        .content { padding: 40px; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f0f0f0;
+        }
+        .card h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .card h3 { color: #764ba2; margin: 30px 0 15px; font-size: 1.5rem; }
+        .card h4 { color: #333; margin: 20px 0 12px; font-size: 1.3rem; }
+        .table-schema {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+        .field {
+            display: grid;
+            grid-template-columns: 250px 180px 1fr;
+            gap: 20px;
+            padding: 12px 0;
+            border-bottom: 1px dashed #ddd;
+            align-items: center;
+        }
+        .field:last-child { border-bottom: none; }
+        .field-name { font-weight: 700; color: #667eea; }
+        .field-type { color: #764ba2; font-family: 'Courier New', monospace; font-weight: bold; }
+        .field-desc { color: #555; font-size: 0.95rem; }
+        .example-code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .example-code .keyword { color: #ff79c6; font-weight: bold; }
+        .example-code .string { color: #50fa7b; }
+        .example-code .comment { color: #6272a4; }
+        .tip, .warning, .success {
+            padding: 18px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left-width: 5px;
+            border-left-style: solid;
+        }
+        .tip { background: #fffbeb; border-left-color: #ffc107; }
+        .warning { background: #f8d7da; border-left-color: #dc3545; }
+        .success { background: #d4edda; border-left-color: #28a745; }
+        .quick-ref {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .quick-ref-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .quick-ref-card:hover { transform: translateY(-8px); }
+        @media (max-width: 768px) {
+            .field { grid-template-columns: 1fr; gap: 8px; }
+            .nav { flex-direction: column; align-items: center; }
+            .nav-btn { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Guide Complet Base de Données CEG FM</h1>
+            <p>Version définitive – Tout comprendre avec des exemples concrets</p>
+        </div>
+
+        <div class="nav">
+            <button class="nav-btn active" onclick="showSection('intro')">📖 Introduction</button>
+            <button class="nav-btn" onclick="showSection('structure')">🏗️ Structure complète</button>
+            <button class="nav-btn" onclick="showSection('sql')">💻 Exemples SQL avancés</button>
+            <button class="nav-btn" onclick="showSection('php')">🐘 Exemples PHP</button>
+            <button class="nav-btn" onclick="showSection('scenarios')">🎯 Scénarios complets</button>
+        </div>
+
+        <div class="content">
+
+            <!-- INTRODUCTION -->
+            <div id="intro" class="section active">
+                <div class="card">
+                    <h2>🎓 Bienvenue dans la Base de Données CEG FM</h2>
+                    <p>Une base complète, robuste et professionnelle pour gérer tout un établissement scolaire : élèves, professeurs, notes, bulletins, présences, emplois du temps, certificats, etc.</p>
+
+                    <div class="quick-ref">
+                        <div class="quick-ref-card"><h3>👥 Personnes & Utilisateurs</h3><p>Séparation claire identité / compte</p></div>
+                        <div class="quick-ref-card"><h3>📅 Années & Périodes</h3><p>Gestion précise des trimestres</p></div>
+                        <div class="quick-ref-card"><h3>📊 Notes & Bulletins</h3><p>Calcul automatique des moyennes et rangs</p></div>
+                        <div class="quick-ref-card"><h3>🕒 Présences & Cahier de texte</h3><p>Suivi quotidien complet</p></div>
+                    </div>
+
+                    <div class="success">
+                        <strong>✅ Points forts :</strong> Soft delete partout, audit, sécurité, contraintes fortes, historique complet.
+                    </div>
+                </div>
+            </div>
+
+            <!-- STRUCTURE COMPLÈTE -->
+            <div id="structure" class="section">
+                <div class="card">
+                    <h2>🏗️ Structure Complète des Tables</h2>
+
+                    <div class="table-schema">
+                        <h4>1. personnes</h4>
+                        <div class="field"><span class="field-name">id</span><span class="field-type">INT PK AI</span><span class="field-desc">Clé primaire</span></div>
+                        <div class="field"><span class="field-name">nom / prenom</span><span class="field-type">VARCHAR</span><span class="field-desc">Identité</span></div>
+                        <div class="field"><span class="field-name">date_naissance / sexe</span><span class="field-type">DATE / ENUM</span><span class="field-desc">Informations personnelles</span></div>
+                        <div class="field"><span class="field-name">telephone / adresse</span><span class="field-type">VARCHAR / TEXT</span><span class="field-desc">Contact</span></div>
+                        <div class="field"><span class="field-name">deleted_at</span><span class="field-type">DATETIME</span><span class="field-desc">Soft delete</span></div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>2. utilisateurs</h4>
+                        <div class="field"><span class="field-name">personne_id</span><span class="field-type">INT UNIQUE FK</span><span class="field-desc">1 personne = 1 compte max</span></div>
+                        <div class="field"><span class="field-name">email / password_hash</span><span class="field-type">VARCHAR UNIQUE</span><span class="field-desc">Connexion sécurisée</span></div>
+                        <div class="field"><span class="field-name">role</span><span class="field-type">ENUM(admin,prof,eleve,parent)</span><span class="field-desc">Droits d'accès</span></div>
+                        <div class="field"><span class="field-name">statut</span><span class="field-type">ENUM</span><span class="field-desc">en_attente, actif, suspendu...</span></div>
+                        <div class="field"><span class="field-name">tentatives_connexion / compte_verrouille</span><span class="field-type">Sécurité</span><span class="field-desc">Protection brute force</span></div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>3. annee_scolaire</h4>
+                        <div class="field"><span class="field-name">actif</span><span class="field-type">TINYINT(1)</span><span class="field-desc">Une seule année active (contrôlé par trigger)</span></div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>4. periodes</h4>
+                        <p>Trimestres ou semestres dans une année</p>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>5. classes / 6. matieres</h4>
+                        <p>Structure classique avec contraintes d'unicité</p>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>7. professeurs & 8. eleves</h4>
+                        <p>Lient utilisateur_id et personne_id</p>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>9. inscriptions</h4>
+                        <p><strong>Clé de l'historique</strong> : un élève peut changer de classe chaque année</p>
+                        <div class="field"><span class="field-name">UNIQUE(eleve_id, annee_scolaire_id)</span><span class="field-type"></span><span class="field-desc">Un élève ne peut être inscrit qu'une fois par année</span></div>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>10. affectations_prof</h4>
+                        <p>Prof → Classe → Matière → Année</p>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>11. notes</h4>
+                        <p>Très granulaire : type de note, période, publié ou non</p>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>12. bulletins</h4>
+                        <p>Moyenne, rang, appréciation, décision conseil</p>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>13. appel / 14. cahier_de_texte / 15. emploi_du_temps</h4>
+                        <p>Suivi quotidien complet</p>
+                    </div>
+
+                    <div class="table-schema">
+                        <h4>16. certificats / 17. logs_audit / 18. parametres_etablissement</h4>
+                        <p>Fonctionnalités administratives</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXEMPLES SQL -->
+            <div id="sql" class="section">
+                <div class="card">
+                    <h2>💻 Exemples SQL Concrets & Avancés</h2>
+
+                    <h3>1. Tous les élèves actifs avec leur classe actuelle</h3>
+                    <div class="example-code"><span class="keyword">SELECT</span>
+    p.nom, p.prenom, e.matricule,
+    CONCAT(c.niveau, ' ', c.nom) <span class="keyword">AS</span> classe
+<span class="keyword">FROM</span> eleves e
+<span class="keyword">JOIN</span> personnes p <span class="keyword">ON</span> e.personne_id = p.id
+<span class="keyword">JOIN</span> inscriptions i <span class="keyword">ON</span> i.eleve_id = e.id
+<span class="keyword">JOIN</span> classes c <span class="keyword">ON</span> i.classe_id = c.id
+<span class="keyword">JOIN</span> annee_scolaire a <span class="keyword">ON</span> i.annee_scolaire_id = a.id
+<span class="keyword">WHERE</span> a.actif = 1 <span class="keyword">AND</span> i.statut = 'actif'
+<span class="keyword">AND</span> e.deleted_at <span class="keyword">IS NULL</span>
+<span class="keyword">ORDER BY</span> c.niveau, c.nom, p.nom;</div>
+
+                    <h3>2. Bulletin complet d’un élève pour un trimestre</h3>
+                    <div class="example-code"><span class="keyword">SELECT</span>
+    m.nom <span class="keyword">AS</span> matiere,
+    m.coefficient,
+    ROUND(AVG(n.valeur), 2) <span class="keyword">AS</span> moyenne_matiere,
+    ROUND(AVG(n.valeur) * m.coefficient, 2) <span class="keyword">AS</span> note_ponderee
+<span class="keyword">FROM</span> notes n
+<span class="keyword">JOIN</span> affectations_prof ap <span class="keyword">ON</span> n.affectation_id = ap.id
+<span class="keyword">JOIN</span> matieres m <span class="keyword">ON</span> ap.matiere_id = m.id
+<span class="keyword">JOIN</span> inscriptions i <span class="keyword">ON</span> n.inscription_id = i.id
+<span class="keyword">WHERE</span> i.eleve_id = 15 <span class="comment">-- ID élève</span>
+  <span class="keyword">AND</span> n.periode_id = 2 <span class="comment">-- Trimestre 2</span>
+  <span class="keyword">AND</span> n.publiee = 1
+<span class="keyword">GROUP BY</span> m.id
+<span class="keyword">ORDER BY</span> m.nom;</div>
+
+                    <h3>3. Classement d’une classe pour un trimestre</h3>
+                    <div class="example-code"><span class="keyword">SELECT</span>
+    p.nom, p.prenom, e.matricule,
+    b.moyenne_generale,
+    b.rang,
+    b.appreciation_generale
+<span class="keyword">FROM</span> bulletins b
+<span class="keyword">JOIN</span> inscriptions i <span class="keyword">ON</span> b.inscription_id = i.id
+<span class="keyword">JOIN</span> eleves e <span class="keyword">ON</span> i.eleve_id = e.id
+<span class="keyword">JOIN</span> personnes p <span class="keyword">ON</span> e.personne_id = p.id
+<span class="keyword">JOIN</span> classes c <span class="keyword">ON</span> i.classe_id = c.id
+<span class="keyword">WHERE</span> b.periode_id = 1 <span class="comment">-- Trimestre 1</span>
+  <span class="keyword">AND</span> c.id = 3 <span class="comment">-- Classe 6ème A</span>
+<span class="keyword">ORDER BY</span> b.rang;</div>
+
+                    <h3>4. Taux de présence d’un élève</h3>
+                    <div class="example-code"><span class="keyword">SELECT</span>
+    ROUND(
+        (SUM(<span class="keyword">CASE WHEN</span> present = 1 <span class="keyword">THEN</span> 1 <span class="keyword">ELSE</span> 0 <span class="keyword">END</span>) * 100.0 / COUNT(*)), 2
+    ) <span class="keyword">AS</span> taux_presence
+<span class="keyword">FROM</span> appel a
+<span class="keyword">JOIN</span> inscriptions i <span class="keyword">ON</span> a.inscription_id = i.id
+<span class="keyword">WHERE</span> i.eleve_id = 20
+  <span class="keyword">AND</span> a.date_appel <span class="keyword">BETWEEN</span> '2024-09-01' <span class="keyword">AND</span> '2024-12-15';</div>
+
+                    <h3>5. Emploi du temps d’une classe</h3>
+                    <div class="example-code"><span class="keyword">SELECT</span>
+    jour,
+    heure_debut,
+    heure_fin,
+    m.nom <span class="keyword">AS</span> matiere,
+    CONCAT(p.nom, ' ', p.prenom) <span class="keyword">AS</span> professeur,
+    salle
+<span class="keyword">FROM</span> emploi_du_temps edt
+<span class="keyword">JOIN</span> affectations_prof ap <span class="keyword">ON</span> edt.affectation_id = ap.id
+<span class="keyword">JOIN</span> matieres m <span class="keyword">ON</span> ap.matiere_id = m.id
+<span class="keyword">JOIN</span> professeurs prof <span class="keyword">ON</span> ap.prof_id = prof.id
+<span class="keyword">JOIN</span> personnes p <span class="keyword">ON</span> prof.personne_id = p.id
+<span class="keyword">WHERE</span> edt.classe_id = 1 <span class="keyword">AND</span> edt.actif = 1
+<span class="keyword">ORDER BY</span>
+    FIELD(jour, 'Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'),
+    heure_debut;</div>
+                </div>
+            </div>
+
+            <!-- EXEMPLES PHP -->
+            <div id="php" class="section">
+                <div class="card">
+                    <h2>🐘 Exemples PHP avec PDO (sécurisés)</h2>
+
+                    <h3>Connexion PDO réutilisable</h3>
+                    <div class="example-code"><span class="keyword">$pdo</span> = <span class="keyword">new</span> PDO(
+    <span class="string">'mysql:host=localhost;dbname=ceg_fm;charset=utf8mb4'</span>,
+    <span class="string">'username'</span>, <span class="string">'password'</span>,
+    [PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION]
+);</div>
+
+                    <h3>S’authentifier un utilisateur</h3>
+                    <div class="example-code"><span class="keyword">$email</span> = <span class="string">'jean@ceg.mg'</span>;<br>
+<span class="keyword">$sql</span> = <span class="string">"SELECT u.*, p.nom, p.prenom FROM utilisateurs u
+JOIN personnes p ON u.personne_id = p.id
+WHERE u.email = :email AND u.statut = 'actif' AND u.deleted_at IS NULL"</span>;<br>
+<span class="keyword">$stmt</span> = <span class="keyword">$pdo</span>-&gt;prepare(<span class="keyword">$sql</span>);<br>
+<span class="keyword">$stmt</span>-&gt;execute(['email' =&gt; <span class="keyword">$email</span>]);<br>
+<span class="keyword">$user</span> = <span class="keyword">$stmt</span>-&gt;fetch();</div>
+
+                    <h3>Saisir une note (professeur)</h3>
+                    <div class="example-code"><span class="keyword">$sql</span> = <span class="string">"INSERT INTO notes
+(inscription_id, periode_id, affectation_id, type_note, valeur, sur_combien, date_evaluation)
+VALUES (:inscr, :periode, :affect, :type, :valeur, :sur, :date)"</span>;<br><br>
+<span class="keyword">$stmt</span> = <span class="keyword">$pdo</span>-&gt;prepare(<span class="keyword">$sql</span>);<br>
+<span class="keyword">$stmt</span>-&gt;execute([<br>
+&nbsp;&nbsp;<span class="string">'inscr'</span> =&gt; 150,<br>
+&nbsp;&nbsp;<span class="string">'periode'</span> =&gt; 1,<br>
+&nbsp;&nbsp;<span class="string">'affect'</span> =&gt; 45,<br>
+&nbsp;&nbsp;<span class="string">'type'</span> =&gt; 'devoir',<br>
+&nbsp;&nbsp;<span class="string">'valeur'</span> =&gt; 16.5,<br>
+&nbsp;&nbsp;<span class="string">'sur'</span> =&gt; 20,<br>
+&nbsp;&nbsp;<span class="string">'date'</span> =&gt; '2024-10-15'<br>
+]);</div>
+
+                    <h3>Faire l’appel du jour</h3>
+                    <div class="example-code"><span class="keyword">$sql</span> = <span class="string">"INSERT INTO appel
+(date_appel, inscription_id, affectation_id, heure_cours, present, retard, saisie_par)
+VALUES (:date, :inscr, :affect, :heure, :present, :retard, :prof)"</span>;<br><br>
+<span class="comment">// Boucle sur les élèves de la classe</span><br>
+<span class="keyword">foreach</span> (<span class="keyword">$eleves</span> <span class="keyword">as</span> <span class="keyword">$eleve</span>) {<br>
+&nbsp;&nbsp;<span class="keyword">$stmt</span> = <span class="keyword">$pdo</span>-&gt;prepare(<span class="keyword">$sql</span>);<br>
+&nbsp;&nbsp;<span class="keyword">$stmt</span>-&gt;execute([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'date'</span> =&gt; date('Y-m-d'),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'inscr'</span> =&gt; <span class="keyword">$eleve</span>['inscription_id'],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'affect'</span> =&gt; <span class="keyword">$affectation_id</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'heure'</span> =&gt; '08:00:00',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'present'</span> =&gt; <span class="keyword">$eleve</span>['present'] ? 1 : 0,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'retard'</span> =&gt; <span class="keyword">$eleve</span>['retard'] ? 1 : 0,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'prof'</span> =&gt; <span class="keyword">$_SESSION</span>['user_id']<br>
+&nbsp;&nbsp;]);<br>
+}</div>
+                </div>
+            </div>
+
+            <!-- SCÉNARIOS COMPLETS -->
+            <div id="scenarios" class="section">
+                <div class="card">
+                    <h2>🎯 Scénarios Complets Pas à Pas</h2>
+
+                    <h3>Scénario 1 : Inscrire un nouvel élève</h3>
+                    <ol style="margin: 20px 0; padding-left: 30px; line-height: 2;">
+                        <li>INSERT personnes → récupérer $personne_id</li>
+                        <li>INSERT utilisateurs (email, password_hash, role='eleve', statut='en_attente')</li>
+                        <li>INSERT eleves (utilisateur_id, personne_id, matricule, date_inscription...)</li>
+                        <li>INSERT inscriptions (eleve_id, classe_id de l’année active, statut='actif')</li>
+                        <li>Envoi email validation au parent/admin</li>
+                    </ol>
+
+                    <h3>Scénario 2 : Saisie des notes → Génération bulletin</h3>
+                    <ol style="margin: 20px 0; padding-left: 30px; line-height: 2;">
+                        <li>Professeur saisit les notes (plusieurs devoirs/examens)</li>
+                        <li>Il marque les notes comme publiées</li>
+                        <li>Admin lance calcul des moyennes par matière</li>
+                        <li>Calcul moyenne générale pondérée par coefficients</li>
+                        <li>Appel de la procédure calculer_rangs_bulletins($periode_id)</li>
+                        <li>Génération PDF bulletin</li>
+                    </ol>
+
+                    <h3>Scénario 3 : Passage à l’année suivante</h3>
+                    <ol style="margin: 20px 0; padding-left: 30px; line-height: 2;">
+                        <li>Créer nouvelle annee_scolaire (début/fin, actif=1 → trigger désactive l’ancienne)</li>
+                        <li>Créer les nouvelles classes</li>
+                        <li>Créer les périodes (trimestres)</li>
+                        <li>Affecter les professeurs (nouvelles affectations)</li>
+                        <li>Créer emploi du temps</li>
+                        <li>Inscrire les élèves dans leurs nouvelles classes</li>
+                    </ol>
+
+                    <div class="tip">
+                        <strong>💡 Tout est historisé :</strong> on ne supprime jamais physiquement, on utilise deleted_at.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector(`.nav-btn[onclick="showSection('${id}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
+
+<p>
+    
+</p>

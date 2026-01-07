@@ -9,21 +9,25 @@
 </head>
 <body>
     <div class="parent">
-        <?php require_once('../include/header.php'); ?>
+        <?php
+        // require_once('./app/config/db.php');
+        require_once __DIR__ . '/../../include/auth_check.php';
+        require_role('admin');
 
-        <!-- CONTENU PRINCIPAL -->
+        $pageTitle = 'Liste des Élèves';
+        require_once __DIR__ . '/../../include/header.php';
+        ?>
+
         <div class="div3">
-            <h1>Titre de la page</h1>
+            <h1>ASSIGNEMENT</h1>
             
-            <!-- Votre contenu ici -->
             <div class="card">
-                <div class="card-header">Ma carte</div>
-                <p>Contenu de la carte...</p>
+                <div class="card-header">Test Card</div>
+                <p>Si vous voyez ceci correctement, tout fonctionne ! 🎉</p>
             </div>
             
-            <!-- Footer -->
             <div class="footer">
-                <p>&copy; <?= date('Y') ?> CEG François de Mahy. Tous droits réservés.</p>
+                <p>&copy; 2024 CEG François de Mahy</p>
             </div>
         </div>
     </div>
