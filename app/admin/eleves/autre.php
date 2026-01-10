@@ -102,7 +102,6 @@ require_once __DIR__ . '/../../include/header.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Élèves - CEG FM</title>
     <link rel="stylesheet" href="../../../public/assets/styles/style.css">
-    <link rel="stylesheet" href="../../../public/assets/icon/fontAwesome/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -193,13 +192,9 @@ require_once __DIR__ . '/../../include/header.php';
                             </div>
                             
                             <select name="classe_id" id="filterClasse" class="form-select" onchange="this.form.submit()">
-                                <option value="">
-                                    <i class="fa-solid fa-door-open"></i>
-                                 Toutes les classes
-                                </option>
+                                <option value="">🚪 Toutes les classes</option>
                                 <option value="sans_classe" <?= $classe_filter === 'sans_classe' ? 'selected' : '' ?>>
-                                    <i class="fa-solid fa-ban"></i>
-                                     Sans classe assignée
+                                    ⚠️ Sans classe assignée
                                 </option>
                                 <?php foreach ($classes as $classe): ?>
                                     <option value="<?= $classe['id'] ?>" 
@@ -210,47 +205,21 @@ require_once __DIR__ . '/../../include/header.php';
                             </select>
                             
                             <select name="statut" id="filterStatut" class="form-select" onchange="this.form.submit()">
-                                <option value="">
-                                    <i class="fa-solid fa-chart-column"></i>
-                                    Tous les statuts
-                                </option>
-                                <option value="actif" <?= $statut_filter === 'actif' ? 'selected' : '' ?>>
-                                    <i class="fa-regular fa-circle-check"></i>
-                                     Actif
-                                </option>
-                                <option value="redouble" <?= $statut_filter === 'redouble' ? 'selected' : '' ?>>
-                                    <i class="fa-solid fa-arrows-rotate"></i>
-                                    Redoublant
-                                </option>
-                                <option value="abandonne" <?= $statut_filter === 'abandonne' ? 'selected' : '' ?>>
-                                    <i class="fa-solid fa-ban"></i> Abandonné
-                                </option>
-                                <option value="transfere" <?= $statut_filter === 'transfere' ? 'selected' : '' ?>>
-                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                     Transféré
-                                </option>
-                                <option value="diplome" <?= $statut_filter === 'diplome' ? 'selected' : '' ?>>
-                                    <i class="fa-solid fa-user-graduate"></i>
-                                    Diplômé
-                                </option>
+                                <option value="">📊 Tous les statuts</option>
+                                <option value="actif" <?= $statut_filter === 'actif' ? 'selected' : '' ?>>✅ Actif</option>
+                                <option value="redouble" <?= $statut_filter === 'redouble' ? 'selected' : '' ?>>🔄 Redoublant</option>
+                                <option value="abandonne" <?= $statut_filter === 'abandonne' ? 'selected' : '' ?>>❌ Abandonné</option>
+                                <option value="transfere" <?= $statut_filter === 'transfere' ? 'selected' : '' ?>>➡️ Transféré</option>
+                                <option value="diplome" <?= $statut_filter === 'diplome' ? 'selected' : '' ?>>🎓 Diplômé</option>
                             </select>
                             
                             <select id="filterSexe" class="form-select">
-                                <option value="">
-                                    <i class="fa-solid fa-transgender"></i>
-                                     Tous
-                                </option>
-                                <option value="M">
-                                    <i class="fa-solid fa-child"></i> 
-                                    Garçons
-                                </option>
-                                <option value="F">
-                                    <i class="fa-solid fa-child-dress"></i> 
-                                    Filles
-                                </option>
+                                <option value="">⚧️ Tous</option>
+                                <option value="M">👨 Garçons</option>
+                                <option value="F">👩 Filles</option>
                             </select>
                             
-                            <a href="liste-eleve.php" class="btn btn-outline-secondary">
+                            <a href="liste-eleves.php" class="btn btn-outline-secondary">
                                 <i class="fa-solid fa-rotate-right"></i> Réinitialiser
                             </a>
                         </div>

@@ -98,14 +98,14 @@ if (!$eleve) {
 
 <label>Date naissance</label>
 <input type="date" name="date_naissance" value="<?= $eleve['date_naissance'] ?>">
-
+<br>
 <label>Téléphone</label>
 <input type="text" name="telephone" value="<?= htmlspecialchars($eleve['telephone']) ?>">
 
 <label>Adresse</label>
 <input type="text" name="adresse" value="<?= htmlspecialchars($eleve['adresse']) ?>">
 
-<hr>
+
 
 <label>Nom du parent</label>
 <input type="text" name="nom_parent" value="<?= htmlspecialchars($eleve['nom_parent']) ?>">

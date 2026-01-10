@@ -97,7 +97,9 @@ if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image']) && f
                          <a href="<?= APP_URL ?>admin/organisation/calendrier.php" class="menu-item">
                             <i class="fa-solid fa-calendar-days"></i> Calendrier</a> 
                          <a href="<?= APP_URL ?>admin/organisation/utilisateur.php" class="menu-item">
-                            <i class="fa-solid fa-user-gear"></i> Comptes utilisateurs</a> 
+                            <i class="fa-solid fa-user-gear"></i> Comptes utilisateurs</a>
+                         <a href="<?= APP_URL ?>admin/organisation/emploi-du-temps.php" class="menu-item">
+                            <i class="fa-solid fa-calendar-days"></i>Emploi du temps</a>
                     </ul>
                 </div>
 
@@ -161,7 +163,7 @@ if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image']) && f
             </div>
 
             <div class="user-profile dropdown">  <!-- Ajoute class="dropdown" ici -->
-                <img src="../../public/assets/images/CEG-fm.png" alt="Photo de profil" class="profile-img">    
+                    
                 <img src="<?= htmlspecialchars($profileImage) ?>" alt="Photo de profil" class="profile-img">
                 
                 <button class="dropdown-toggle btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
